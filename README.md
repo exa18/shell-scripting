@@ -5,4 +5,5 @@ My shell scripts for particular systems.
     - Speedtest : measure network speed and logs results
 
 ### Windows
+    - SyncWithRemoteTask : creates script and schedule for backup local to remote
 
