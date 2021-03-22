@@ -31,6 +31,13 @@ if /I !%tt%!==!! goto :empty
 	set hh=%tt:~0,2%:%tt:~2,4%
 :empty
 
+if NOT exist "%p%" goto :emptyn1
+	set /p tt=Want continue installation (y/n) ? 
+	if /I !%tt%!==!y! goto :install
+	echo.
+	echo *** Begin configuration
+:emptyn1
+
 set /p tt=Input directory from %dest% : 
 if /I !%tt%!==!! goto :empty2
 	set un=%tt%
@@ -63,7 +70,7 @@ echo rclone sync "\\?\%%USERPROFILE%%%cuser%" "%dest%/%un%/%destdir%" --no-updat
 
 :nextadd
 echo.
-set /p tt=Do you want add another entry (y/n) ? 
+set /p tt=Want add another entry (y/n) ? 
 if /I !%tt%!==!y! goto :locadd
 	goto :emptyadd
 :locadd
@@ -92,5 +99,6 @@ if /I !%tt%!==!y! goto :install
 :install
 
 xcopy /Y "%dir%%prg%.*" "%ProgramFiles%\"
+del /q "%dir%%prg%.*"
 SCHTASKS /DELETE /TN "\%task%"
 SCHTASKS /CREATE /SC DAILY /TN "\%task%" /TR "%ProgramFiles%\%ap%" /ST %hh%
