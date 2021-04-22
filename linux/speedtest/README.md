@@ -3,7 +3,7 @@
 
 This script is for network speed test and logging results to logs in .TXT and .CSV (excel format).
 It runs speedtest command which need to be installed. 
-You can download it from [here](https://github.com/sivel/speedtest-cli) or install from your repo 'speedtest-cli'.
+You can download it from [here](https://github.com/sivel/speedtest-cli) or install from repo 'speedtest-cli'.
 
 ### Options
     -r - remove old entries from log files (default: 61 days)
