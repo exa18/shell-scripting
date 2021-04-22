@@ -6,12 +6,12 @@ r='sp_result'
 temp='sp_temp'
 csv="${r}.csv"  #formated for Excel
 txt="${r}.txt"  #raw
-history=61  # days
+history=91  # days
 #
 # test if installed
 #
 run=''
-command -v speedtest >/dev/null || run="SPEEDTEST"
+command -v speedtest >/dev/null || run="SPEEDTEST-CLI"
 [ -n "${run}" ] && echo "...need to install ${run}" && exit
 
     # date D U
@@ -36,9 +36,8 @@ if [ -z "${1}" ] && [ "$1" != "-r" ];then
     [ -e ${csv} ] || echo "time;D;U" > ${csv}
     [ -e ${txt} ] || echo -e "time\tD\tU" > ${txt}
     d=$(getDate)
-    speedtest --secure | grep -E '([0-9]{1,3}\.[0-9]{2})\s(Mbit\/s)' | awk '{print $2}' > ${temp}
-    readarray -t arr < ${temp}
-    rm ${temp}
+    speedtest --secure --simple > ${temp}
+    readarray -t arr <<< $(cat ${temp} | grep -E '([0-9]{1,3}\.[0-9]{2})\s(Mbit\/s)' | awk '{print $2}')
     addCsv "${d}" "${arr[0]}" "${arr[1]}"
     addTxt "${d}" "${arr[0]}" "${arr[1]}"
 
@@ -88,3 +87,5 @@ else
         fi
     done
 fi
+# end & clear temps
+rm ${temp}
