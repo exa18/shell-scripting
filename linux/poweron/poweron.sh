@@ -11,9 +11,14 @@
 	dateGetMonth () {
 		echo "${1:5:2}"
 	}
+	getData () {
+		readarray -t arr <<< $(last -x runlevel --time-format iso | grep -Eo ".*${1}.*" | awk '{print $6"."$8}')
+	}
 
 ### actual year and month
 d=("$(date '+%Y')" "$(date '+%-m')")
+dcur="$(date +%Y-%m-%dT%H:%M:%S)"
+dcmon="$(date +%m)"
 
 ### get inputs
 inp=$(zenity --forms --title="How long is ON" --width=300 \
@@ -70,7 +75,7 @@ then
 	#
 	# extract reboot times (when comp was ON)
 	#	
-	readarray -t arr <<< $(last -x runlevel --time-format iso | grep -Eo ".*${is}.*" | awk '{print $6"."$8}')
+	getData "${is}"
 
 	### get last day of month
 	last=$(echo $(cal ${mt} ${yr}) | awk '{print $NF}')
@@ -79,9 +84,13 @@ then
 	me="${is}-${last}T23:59:59"
 	### total minutes in month
 	gtot=$(( $last*24*60 ))
+	### check if other month then replace current date with given month
+	[ "${mt}" != "${dcmon}" ] && dcur="${me}"
 	#
 	# Count result
 	#
+	### if array empty in case non-stop run
+	[[ -z "${arr[@]}" ]] && getData "running"
 		#x=0
 	g=0
 	for i in "${arr[@]}"
@@ -89,6 +98,7 @@ then
 		### check if prev/next month
 		IFS='.' read -ra av <<< "${i}"
 		dl=$(bc <<< "$(dateGetMonth "${av[0]}") - ${mt}")
+		[ "${av[1]}" = "running" ] && av[1]="${dcur}"
 		dr=$(bc <<< "$(dateGetMonth "${av[1]}") - ${mt}")
 
 	if [ $dl -eq $dr ];then
@@ -107,6 +117,8 @@ then
 		g=$(( g + aa ))
 		#x=$(( x+1 ))
 	done
+		### add 1 hour and 1 minute
+		g=$(( g + 61 ))
 	#
 	# show
 	#
