@@ -12,7 +12,7 @@
 		echo "${1:5:2}"
 	}
 	getData () {
-		readarray -t arr <<< $(last -x runlevel --time-format iso | grep -Eo ".*${1}.*" | awk '{print $6"."$8}')
+		readarray -t arr <<< "$(last -x runlevel --time-format iso | grep -Eo ".*${1}.*" | awk '{print $6"."$8}')"
 	}
 
 ### actual year and month
@@ -46,12 +46,9 @@ then
 	# process inputs
 	#
 	### when year only
-	if [ ${#arr[@]} -lt "2" ] 
-	then
-		arr[1]="${d[1]}"
-	fi
+	[ ${#arr[@]} -lt "2" ] && arr[1]="${d[1]}"
 	### process array with inputs
-	x=0	
+	x=0
 	for i in "${arr[@]}"
 	do
 		if [ -z "$i" ]
@@ -74,7 +71,7 @@ then
 			mt=${i}
 	#
 	# extract reboot times (when comp was ON)
-	#	
+	#
 	getData "${is}"
 
 	### get last day of month
@@ -90,7 +87,7 @@ then
 	# Count result
 	#
 	### if array empty in case non-stop run
-	[[ -z "${arr[@]}" ]] && getData "running"
+	[[ -z "${arr[*]}" ]] && getData "running"
 		#x=0
 	g=0
 	for i in "${arr[@]}"
