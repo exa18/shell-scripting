@@ -28,7 +28,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - e :: empty will shows all executables, or execute with bash
 - cp :: uses rsync for copy
 - hist :: use grep phrase on .bash_history
-- m :: tizonia plays from set folder // no args list entries // arg '--' list entries of folder given as second arg // arg with folder name play its content
+- m :: tizonia play content of folder given as arg // no args list entries // arg '--' list entries of folder given as second arg
 - ms :: tizonia audio search
 - ml :: tizonia audio playlist
 - sc :: spellcheck on bash with warrnings and errors only
