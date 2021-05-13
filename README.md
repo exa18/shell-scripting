@@ -1,9 +1,9 @@
 # shell-scripting
-My shell scripts for particular systems.
+My shell scripts.
 
 ### Linux
     - Speedtest : measure network speed and logs results
-    - PowerOn : counts how long computer was turned on in month
+    - PowerOn : counts how long computer was turned on during given month
     - Bash : settings for shell
 
 ### Windows
