@@ -29,7 +29,7 @@ alias jpgre='re(){ r="${shJPGRE}"; [ -n "$1" ] && r="${1}"; readarray -t arr <<<
 #
 #	msx
 #
-alias m='msx(){ if [ "$1" = "--" ];then ls -1 "$shMSX/$2"; else tizonia "$shMSX/$1"; fi; };msx'
+alias m='msx(){ if [ -z "$1" ] || [ "$1" = "--" ];then [ -d $shMSX/$2 ] && ls -1 "$shMSX/$2"; else [ -d $shMSX/$1 ] && tizonia "$shMSX/$1"; fi; };msx'
 alias ms='tizonia --youtube-audio-search'
 alias ml='tizonia --youtube-audio-playlist'
 #
