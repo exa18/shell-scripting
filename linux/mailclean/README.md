@@ -10,6 +10,6 @@ Arg starting with -- will show verbosing.
 
 ### Cron entry
 
-'''
+```
 /usr/bin/bash ~/mailclean.sh domain >/dev/null 2>&1
-'''
+```
