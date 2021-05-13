@@ -49,7 +49,7 @@ Copy to your HOME under Termux on your Android device.
 
 - download files to device
 - run Termux
-- execute commands:
+- execute commands (first command only once):
     ```
     termux-setup-storage
     cp storage/downloads/bashrc_termux .
