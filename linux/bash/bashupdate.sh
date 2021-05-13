@@ -2,7 +2,7 @@
 #
 sudo ls >/dev/null
 
-readarray -t arr <<< $(ls -1 /home)
+readarray -t arr <<< "$(ls -1 /home)"
 
 lc=${#arr[@]}
 
