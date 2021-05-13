@@ -40,3 +40,20 @@ Updates all profiles with this set. Copies files with dot thru all users include
 
 - shMSX :: sets working directory for **m**
 - shJPGRE :: sets default % of resize for **jpgre**
+
+## BASH.TERMUX
+
+Copy to your HOME under Termux on your Android device.
+
+### Installation
+
+- download files to device
+- run Termux
+- execute commands:
+    ```
+    termux-setup-storage
+    cp storage/downloads/bashrc_termux .
+    cp storage/downloads/*.sh .
+    mv bashrc_termux .bashrc
+    chmod +x ./*.sh
+    ```
