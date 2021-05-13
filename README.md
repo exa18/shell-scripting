@@ -4,7 +4,8 @@ My shell scripts.
 ### Linux
     - Speedtest : measure network speed and logs results
     - PowerOn : counts how long computer was turned on during given month
-    - Bash : settings for shell
+    - MailClean : arhive and removes old mail entries
+    - Bash : settings for shell (also for Termux)
 
 ### Windows
     - SyncWithRemoteTask : creates script and schedule for backup local to remote
