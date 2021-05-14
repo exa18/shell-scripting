@@ -31,7 +31,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - m :: tizonia play content of folder given as arg // no args list entries // arg '--' list entries of folder given as second arg
 - ms :: tizonia audio search
 - ml :: tizonia audio playlist
-- sc :: spellcheck on bash with warrnings and errors only
+- sc :: shellcheck on bash with warrnings and errors only
 - jpgre :: resize all .jpg which was not scaled to given number of % width/higth // arg with number change % of resize
 - nmap :: with prepend sudo
 - kc :: sync Keepass file local-remote with autochange detection (separate project)
