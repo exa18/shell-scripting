@@ -1,8 +1,8 @@
 #
 #	VARIABLES (settings)
 #
-SH_MSX="/media/hdd/WorkingBe/msx"
-SH_JPGRE="40"
+export SH_MSX="/media/hdd/WorkingBe/msx"
+export SH_JPGRE="40"
 #
 #	ALIASES
 #
