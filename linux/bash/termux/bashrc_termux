@@ -5,7 +5,7 @@ shopt -s histappend
 HISTCONTROL=ignoreboth
 HISTSIZE=
 HISTFILESIZE=
-USER=$(id -un)
+export USER=$(id -un)
 exec {BASH_XTRACEFD}>/dev/null
 #
 #	Aliases
