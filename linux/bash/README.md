@@ -38,8 +38,8 @@ Updates all profiles with this set. Copies files with dot thru all users include
 
 ##### Variables
 
-- shMSX :: sets working directory for **m**
-- shJPGRE :: sets default % of resize for **jpgre**
+- SH_MSX :: sets working directory for **m**
+- SH_JPGRE :: sets default % of resize for **jpgre**
 
 ## BASH.TERMUX
 
