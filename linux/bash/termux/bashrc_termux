@@ -10,7 +10,6 @@ exec {BASH_XTRACEFD}>/dev/null
 #
 #	Aliases
 #
-alias ls='ls --color=never'
 alias l='ls -CF'
 alias l.='ls -dF .*'
 alias ll='ls -alFh'
