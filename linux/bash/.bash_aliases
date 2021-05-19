@@ -8,6 +8,7 @@ export SH_JPGRE="40"
 #
 alias ll='ls -alFh'
 alias l='ls -CF'
+alias l.='ls -dF .*'
 alias dff='df -h | grep -P "(^File|\/sd)" --color=never'
 alias dus='du -h --max-depth=1 --exclude="lost+found"'
 alias cp='rsync -rav'
@@ -37,6 +38,6 @@ alias ml='tizonia --youtube-audio-playlist'
 #
 alias nmap='sudo nmap'
 alias sc='shellcheck -S warning'
-alias e='ex(){ if [ -z "$1" ];then ls -F | awk "/\*$/{print}" | sed "s/.$//"; else exe="./${1}"; [ -e "$exe" ] && bash $exe; fi; };ex'
+alias e='ex(){ if [ -z "$1" ];then ls -F | awk "/\*$/{print}" | sed "s/.$//"; else [ -e "$1" ] && bash $@; fi; };ex'
 alias kc='[ -e ~/kc.sh ] && ~/kc.sh || echo "KC.sh not found"'
 
