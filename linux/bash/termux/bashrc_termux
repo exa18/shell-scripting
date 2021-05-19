@@ -10,14 +10,16 @@ exec {BASH_XTRACEFD}>/dev/null
 #
 #	Aliases
 #
+alias ls='ls --color=never'
 alias l='ls -CF'
+alias l.='ls -dF .*'
 alias ll='ls -alFh'
 alias i='apt -y install'
 alias S='apt show'
 alias s='apt list'
 alias r='apt -y remove'
 alias u='[ -e ~/update.sh ] && ~/update.sh'
-alias e='ex(){ if [ -z "$1" ];then ls -F | awk "/\*$/{print}" | sed "s/.$//"; else exe="./${1}"; [ -e "$exe" ] && bash $exe; fi; };ex'
+alias e='ex(){ if [ -z "$1" ];then ls -F | awk "/\*$/{print}" | sed "s/.$//"; else [ -e "$1" ] && bash $@; fi; };ex'
 alias kc='[ -e ~/kc.sh ] && ~/kc.sh || echo "KC.sh not found"'
 #
 #	Prompt
