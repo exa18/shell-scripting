@@ -41,6 +41,37 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - SH_MSX :: sets working directory for **m**
 - SH_JPGRE :: sets default % of resize for **jpgre**
 
+### Convert and problem with cache
+> Source from (HERE)[https://stackoverflow.com/questions/31407010/cache-resources-exhausted-imagemagick#62512452]
+
+The error probably occurs because you run out of memory. You can check for the resources using the following command:
+**convert -list resource**
+
+The output will be somewhat like this:
+```
+Resource limits:
+  Width: 16KP   
+  Height: 16KP   
+  Area: 128MP   
+  Memory: 256MiB   
+  Map: 512MiB   
+  Disk: 1GiB   
+  File: 768   
+  Thread: 8   
+  Throttle: 0   
+  Time: unlimited
+```
+Here, you can see that the assigned amounts of disk space and memory are very small. So, in order to modify it you need to change the policy.xml file located somewhere in /etc/ImageMagick-6 directory. Use command **find / -name "policy.xml"** to locate.
+
+Change in the **policy.xml** file.
+```
+<policy domain="resource" name="disk" value="1GiB"/>
+```
+to
+```
+<policy domain="resource" name="disk" value="4GiB"/>
+```
+
 ## BASH.TERMUX
 
 Copy to your HOME under Termux on your Android device.
