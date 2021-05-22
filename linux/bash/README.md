@@ -42,7 +42,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - SH_JPGRE :: sets default % of resize for **jpgre**
 
 ### Convert and problem with cache
-> Source from (HERE)[https://stackoverflow.com/questions/31407010/cache-resources-exhausted-imagemagick#62512452]
+> Source from [HERE](https://stackoverflow.com/questions/31407010/cache-resources-exhausted-imagemagick#62512452)
 
 The error probably occurs because you run out of memory. You can check for the resources using the following command:
 **convert -list resource**
