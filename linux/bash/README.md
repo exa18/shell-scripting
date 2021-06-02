@@ -19,9 +19,11 @@ Updates all profiles with this set. Copies files with dot thru all users include
 
 ##### with args
 
+- l. :: list hidden (begins with dot)
 - l :: list entires as columns and with indicator
 - ll :: same as above but as expanded
 - i :: install package with yes agree on
+- I :: reinstall package
 - s :: list repos
 - S :: show given package
 - r :: remove package with yes agree on
@@ -40,6 +42,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 
 - SH_MSX :: sets working directory for **m**
 - SH_JPGRE :: sets default % of resize for **jpgre**
+- SH_SPIN :: sets spin sequence for progress **jpgre** and **psd2jpg**
 
 ### Convert and problem with cache
 > Source from [HERE](https://stackoverflow.com/questions/31407010/cache-resources-exhausted-imagemagick#62512452)
