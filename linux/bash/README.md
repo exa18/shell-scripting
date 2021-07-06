@@ -15,7 +15,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - dus :: shows usage for all directories on actual level
 - psd2jpg :: convert all .psd to .jpg in current folder
 - psk :: shows collected wifi passwords
-- u :: execute update.sh which updates system
+- u :: execute full update
 
 ##### with args
 
