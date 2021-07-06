@@ -86,9 +86,13 @@ Copy to your HOME under Termux on your Android device.
 3. execute commands (first command only once):
     ```
     termux-setup-storage
-    cp storage/downloads/bashrc_termux .
-    cp storage/downloads/*.sh .
-    mv bashrc_termux .bashrc
-    chmod +x ./*.sh
     ```
-4. restart shell: **exec bash**
+4. download file and copy
+    ```
+    cp ./storage/downloads/bashrc_termux ./.bashrc
+    ```
+    OR
+    ```
+    curl https://github.com/exa18/shell-scripting/raw/main/linux/bash/termux/bashrc_termux > .bashrc
+    ```
+5. restart shell: **exec bash**
