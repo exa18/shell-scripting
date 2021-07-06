@@ -23,7 +23,7 @@ alias I='sudo apt -y reinstall'
 alias S='apt show'
 alias s='apt list'
 alias r='sudo apt -y remove'
-alias u='[ -e ~/update.sh ] && sudo ~/update.sh'
+alias u='s="sudo "; ${s}apt update -y && ${s}apt upgrade -y && ${s}apt autoremove -y; set -eu; LANG=en_US.UTF-8 snap list --all | awk '"'"'/disabled/{print $1, $3}'"'"' | while read snapname revision; do ${s}snap remove "$snapname" --revision="$revision"; done; dpkg -l | grep "^rc" | awk '"'"'{print $2}'"'"' | xargs -r ${s}dpkg --purge'
 #
 #	gfx
 #
