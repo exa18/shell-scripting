@@ -19,11 +19,12 @@ alias S='apt show'
 alias s='apt list'
 alias r='apt -y remove'
 alias u='apt update -y && apt upgrade -y && apt autoremove -y; dpkg -l | grep "^rc" | awk '"'"'{print $2}'"'"' | xargs -r dpkg --purge'
-alias e='ex(){ if [ -z "$1" ];then ls -F | awk "/\*$/{print}" | sed "s/.$//"; else [ -e "$1" ] && bash $@; fi; };ex'
+alias e='ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F | awk "/\*$/{print}" | sed "s/.$//"); for v in "${arr[@]}"; do head -c 16 $v | grep bash >/dev/null && echo $v; done; else [ -e "$1" ] && bash $@; fi; };ex'
 alias kc='[ -e ~/kc.sh ] && ~/kc.sh || echo "KC.sh not found"'
 #
 #	Prompt
 #
-PS1=""; [ "$EUID" -eq "0" ] && PS1="\[\033[38;5;196m\]@"
-PS1="$PS1 \[\033[01;36m\]\w >\[\033[34m\]>\[\033[00m\] "
+nc='\[\e[0m\]'
+PS1=""; [ "$UID" -eq "0" ] && PS1="\[\e[1;91m\]@$nc"
+PS1="$PS1 \[\e[1;36m\]\w >\[\e[34m\]>$nc "
 

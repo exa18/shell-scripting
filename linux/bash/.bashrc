@@ -77,10 +77,10 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 export LESSHISTFILE=-
 # remove autocd output
 exec {BASH_XTRACEFD}>/dev/null
-
 #
 #   ------------ PROMPT
 #
-PS1="\[\033[30;44m\]\u\[\033[m\]"; [ "$EUID" -eq "0" ] && PS1=" \[\033[31m\]@"
-PS1="$PS1 \[\033[01;36m\]\w >\[\033[34m\]>\[\033[m\] "
+nc='\[\e[0m\]'
+PS1="\[\e[30;44m\]\u$nc"; [ "$UID" -eq "0" ] && PS1="\[\e[1;91m\]@$nc"
+PS1="$PS1 \[\e[1;96m\]\w >\[\e[34m\]>$nc "
 
