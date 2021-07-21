@@ -19,7 +19,7 @@ alias S='apt show'
 alias s='apt list'
 alias r='apt -y remove'
 alias u='apt update -y && apt upgrade -y && apt autoremove -y; dpkg -l | grep "^rc" | awk '"'"'{print $2}'"'"' | xargs -r dpkg --purge'
-alias e='ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F | awk "/\*$/{print}" | sed "s/.$//"); for v in "${arr[@]}"; do head -c 16 $v | grep bash >/dev/null && echo $v; done; else [ -e "$1" ] && bash $@; fi; };ex'
+alias e='ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F | awk "/\*$/{print}" | sed "s/.$//"); for v in "${arr[@]}"; do head -c 8 $v | grep "#!/" >/dev/null && echo $v; done; else [ -e "$1" ] && ./$@; fi; };ex'
 alias kc='[ -e ~/kc.sh ] && ~/kc.sh || echo "KC.sh not found"'
 #
 #	Prompt

@@ -27,7 +27,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - s :: list repos
 - S :: show given package
 - r :: remove package with yes agree on
-- e :: empty will shows all bash executables, or execute thru bash
+- e :: empty will shows all executables scripts invoked SheBang (#!), or execute
 - cp :: uses rsync for copy
 - hist :: use grep phrase on .bash_history
 - m :: tizonia play content of folder given as arg // no args list entries // arg '--' list entries of folder given as second arg
