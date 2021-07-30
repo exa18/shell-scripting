@@ -12,7 +12,15 @@
 		echo "${1:5:2}"
 	}
 	getData () {
-		readarray -t arr <<< "$(last -x runlevel --time-format iso | grep -Eo ".*${1}.*" | awk '{print $6"."$8}')"
+		x=1
+		log='/var/log/wtmp'
+		arr=
+		while [ -e $log ];do
+			readarray -t trr <<< "$(last -x runlevel --time-format iso -f $log | grep -Eo ".*${1}.*" | awk '{print $6"."$8}')"
+			arr+=(${trr[@]})
+			log=${log}'.'${x}
+			x=$((x+1))
+		done
 	}
 
 ### actual year and month
