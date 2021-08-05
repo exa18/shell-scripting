@@ -40,6 +40,6 @@ alias ml='tizonia --youtube-audio-playlist'
 #
 alias nmap='sudo nmap'
 alias sc='shellcheck -S warning'
-alias e='ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F | awk "/\*$/{print}" | sed "s/.$//"); for v in "${arr[@]}"; do head -c 8 $v | grep "#!/" >/dev/null && echo $v; done; else [ -e "$1" ] && ./$@; fi; };ex'
+alias e='ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F | awk "/\*$/{print}" | sed "s/.$//"); for v in "${arr[@]}"; do head -c 8 $v | grep -E "^#!" >/dev/null && echo $v; done; else [ -e "$1" ] && ./$@; fi; };ex'
 alias kc='[ -e ~/kc.sh ] && ~/kc.sh || echo "KC.sh not found"'
 
