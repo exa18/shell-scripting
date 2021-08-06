@@ -8,6 +8,7 @@ Config is inside **Set** section:
 
 netip : first two numbers of network ip
 tempalert : above given value
+testperiod : perform short test once per given days
 
 #### MAIL
 
