@@ -12,6 +12,7 @@
 #
     netip="192.168"
     tempalert=45
+    testperiod=31
    
     mailsend=8
     mailssl=
@@ -30,6 +31,7 @@
 #
     mailsend=$((mailsend*60))
     smssend=$((smssend*60))
+    testperiod=$((testperiod*24))
     [ ${#smsuserid} -gt 0 ] && smsapi='--data-urlencode userid='$smsuserid' \'
     if [ ${#mailssl} -gt 0 ];then
         mailurls='s'
@@ -75,7 +77,7 @@
         lasttest=$(cat $f | grep "# 1" | awk '{print $(NF-1)}')
         period=$(bc <<< "${poh}-${lasttest}")
         # do short test after 48h
-        if [ $period -gt 48 ];then
+        if [ $period -gt $testperiod ];then
             w=$(echo "$(smartctl -t short ${i})" | awk '/^P.*wait [0-9]+/{print $3}')
             sleep ${w}m
             echo "$(smartctl -a ${i})" > $f
