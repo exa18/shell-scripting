@@ -89,10 +89,10 @@ then
 	# src: https://www.php.net/manual/en/function.cal-days-in-month.php
 	#
 	if [ $mt -eq 2 ];then
-		if [ $(bc <<< "${yr} % 4") -gt 0 ];then
+		if [[ $(bc <<< "${yr} % 4") -gt 0 ]];then
 			last=28
 		else
-			if [ $(bc <<< "${yr} % 100") -gt 0 ];then
+			if [[ $(bc <<< "${yr} % 100") -gt 0 ]];then
 				last=29
 			else
 				[[ $(bc <<< "${yr} % 400") -gt 0 ]] && last=28 || last=29
