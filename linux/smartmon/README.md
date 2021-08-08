@@ -3,8 +3,28 @@
 
 This script test and count if where errors on disks and if so throw with mail and sms. Sms is send 1 per 24h unless have paid plan.
 
-### Config
-Config is inside **Set** section:
+### Config (start)
+Create/rename config file **.smartmoncfg** ( if script name is **smartmon** )
+
+```
+netip="192.168"
+tempalert=45
+testperiod=31
+
+mailsend=8
+mailssl=
+mailsmtp='mailserver'
+mailfrom='mail@adress'
+mailpass='password'
+mailto='amil@adress'
+
+smssend=24
+smsnumber='+48111222333'
+smsuserid=
+smskey='textbelt'
+```
+
+### Config setup
 
 netip : first two numbers of network ip
 tempalert : above given value

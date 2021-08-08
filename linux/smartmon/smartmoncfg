@@ -1,0 +1,15 @@
+netip="192.168"
+tempalert=45
+testperiod=31
+
+mailsend=8
+mailssl=
+mailsmtp=''
+mailfrom=''
+mailpass=''
+mailto=''
+
+smssend=24
+smsnumber='+48'
+smsuserid=
+smskey='textbelt'
