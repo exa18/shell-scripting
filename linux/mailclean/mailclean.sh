@@ -29,9 +29,9 @@ find $d -maxdepth 1 -type f -name "*" -mtime +${ad} -size -${as}M -print | zip -
 #
 #   remove all very old files
 [ "${verbose}" = "--" ] && echo "-- now remove them"
-find $d -maxdepth 1 -type f -name "*" -mtime +${ad} -exec rm {} \;
+find $d -maxdepth 1 -type f -name "*" -mtime +${ad} | xargs rm
 #   LARGE files remove
 [ "${verbose}" = "--" ] && echo "Remove files older than ${al} days and over ${as} MB"
-find $d -maxdepth 1 -type f -name "*" -mtime +${al} -size +${as}M -exec rm {} \;
+find $d -maxdepth 1 -type f -name "*" -mtime +${al} -size +${as}M | xargs rm
 [ "${verbose}" = "--" ] && echo "DONE."
 
