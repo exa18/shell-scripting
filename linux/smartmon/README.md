@@ -7,7 +7,6 @@ This script test and count if where errors on disks and if so throw with mail an
 Create/rename config file **.smartmoncfg** ( if script name is **smartmon** )
 
 ```
-netip="192.168"
 tempalert=45
 testperiod=31
 
@@ -26,7 +25,6 @@ smskey='textbelt'
 
 ### Config setup
 
-netip : first two numbers of network ip
 tempalert : above given value
 testperiod : perform short test once per given days
 

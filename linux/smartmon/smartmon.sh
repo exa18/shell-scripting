@@ -10,7 +10,6 @@
 #
 # > SET (include)
 #
-    netip="192.168"
     tempalert=45
     testperiod=31
    
@@ -74,9 +73,9 @@
 #
 #
 
-    infip="$(ip a | awk '/inet '$netip'/{print $2}')"
+    infip="$(ip a | awk '/inet .* global/{print $2}')"
     infip="${infip##*.}"
-    infhead="${USER^^}/${infip%%/*}//"
+    infhead="${HOSTNAME^^}/${infip%%/*}//"
 
     readarray -t devs <<< "$(smartctl --scan | awk '{print $1}')"
 
@@ -114,7 +113,7 @@
                 # get value
                 e="${j##*=}"
                 # if counts error then make error string
-                [ $e -gt 0 ] && txt_err+="${d}:${e} "
+                [[ "${e}" -gt 0 ]] && txt_err+="${d}:${e} "
             done
             #
             #   check temperature
@@ -126,9 +125,10 @@
             #
             # begin checks if errors and send info
             #
-            ffsms=$(find "$(pwd)" -maxdepth 1 -type f -name 'checksms' -mmin -$smssend)
+            dir="$(pwd)"
+            ffsms=$(find $dir -maxdepth 1 -type f -name 'checksms' -mmin -$smssend)
             [ ${#ffsms} -eq 0 ] && [ -e 'checksms' ] && rm checksms
-            ffmail=$(find "$(pwd)" -maxdepth 1 -type f -name 'checkmail' -mmin -$mailsend)
+            ffmail=$(find $dir -maxdepth 1 -type f -name 'checkmail' -mmin -$mailsend)
             [ ${#ffmail} -eq 0 ] && [ -e 'checkmail' ] && rm checkmail
 
             if [ "${health}" != "PASSED" ] || [ ${#txt_err} -gt 0 ] || [ ${#txt_temp} -gt 0 ];then
@@ -143,7 +143,7 @@
                     mailsub="${smsmsg}"
                     mailmsg=$(cat $f)
                     echo "${mailsub}" > checkmail
-                    sendMail
+                    #sendMail
                 fi
             fi
         fi
