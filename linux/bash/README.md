@@ -36,6 +36,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - sc :: shellcheck on bash with warrnings and errors only
 - jpgre :: resize all .jpg which was not scaled to given number of % width/higth // arg with number change % of resize
 - nmap :: with prepend sudo
+- tm :: change access and modification datetime with arg YYYYMMDDhhmm. Changes with only provided part of arg.
 - kc :: sync Keepass file local-remote with autochange detection (separate project)
 
 ##### Variables
@@ -43,6 +44,11 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - SH_MSX :: sets working directory for **m**
 - SH_JPGRE :: sets default % of resize for **jpgre**
 - SH_SPIN :: sets spin sequence for progress **jpgre** and **psd2jpg**
+
+### Unbundled
+
+Contains full and prettified some scripts of above aliases.
+
 
 ### Convert and problem with cache
 > Source from [HERE](https://stackoverflow.com/questions/31407010/cache-resources-exhausted-imagemagick#62512452)
