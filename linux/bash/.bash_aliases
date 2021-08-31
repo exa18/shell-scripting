@@ -40,6 +40,6 @@ alias ml='tizonia --youtube-audio-playlist'
 #
 alias nmap='sudo nmap'
 alias sc='shellcheck -S warning'
-alias e='ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F | awk "/\*$/{print}" | sed "s/.$//"); [ ${#arr[@]} -gt 0 ] && for v in "${arr[@]}"; do head -c 8 $v | grep -E "^#!" >/dev/null && echo $v; done; else if [ "$1" = "sudo" ];then s="$1 ";shift;fi; $s./$@; fi; };ex'
+alias e='ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F1 | awk "/\*$/{print}" | sed "s/.$//"); [[ $(wc -w <<< "${arr[@]}") -gt 0 ]] && for v in "${arr[@]}"; do head -c 8 $v | grep -E "^#!" >/dev/null && echo $v; done; else if [ "$1" = "sudo" ];then s="$1 ";shift;fi; $s./$*; fi; };ex'
 alias tm='tmdd(){ local arr=("${1::4}" "${1:4:2}" "${1:6:2}" "${1:8:2}" "${1:10:2}"); echo "${arr[@]}";}; tme(){ p=($(tmdd "${1}")); readarray -t list <<< "$(ls -1)"; if [ ${#list[@]} -gt 0 ]; then for f in "${list[@]}"; do pf=($(tmdd "$(date '"'"'+%Y%m%d%H%M'"'"' -r ${f})")); d=; x=0; for v in "${pf[@]}"; do [ ${#p[$x]} -gt 0 ] && a=${p[$x]} || a=${v}; d=${d}${a}; x=$((x+1)); done; touch -a -m -t $d $f; done; fi;};tme'
 alias kc='[ -e ~/kc.sh ] && ~/kc.sh || echo "KC.sh not found"'
