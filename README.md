@@ -7,6 +7,7 @@ My shell scripts.
     - MailClean : arhive and removes old mail entries
     - SmartMon : check and notify if S.M.A.R.T. errors thru mail/sms
     - Bash : settings for shell (also for Termux)
+    - Lesson Plan Optivum Vulcan: check lesson plan and if changed send to mail
 
 ### Windows
     - SyncWithRemoteTask : creates script and schedule for backup local to remote
