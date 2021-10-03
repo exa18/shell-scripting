@@ -13,3 +13,19 @@ You can download it from [here](https://github.com/sivel/speedtest-cli) or insta
     (run test every 15 minutes and run cleanup at 0:00 everyday)
     */15 * * * * bash /home/user/sp.sh
     0 0 * * * bash /home/user/sp.sh -r
+
+
+### Termux
+
+Follow instructions from [this](https://github.com/thelearn-tech/speedtest-cli). Before need to do:
+```
+    pkg update
+    pkg install python git
+```
+then
+```
+    git clone https://github.com/thelearn-tech/speedtest-cli
+    cd speedtest-cli
+    chmod +x termux-install.sh
+    ./termux-install.sh
+```
