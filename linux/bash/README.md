@@ -92,6 +92,7 @@ Copy to your HOME under Termux on your Android device.
 3. execute commands (first command only once):
     ```
     termux-setup-storage
+    pkg update && pkg install python git rclone zip unzip wget
     ```
 4. download file and copy
     ```
@@ -101,4 +102,9 @@ Copy to your HOME under Termux on your Android device.
     ```
     curl https://github.com/exa18/shell-scripting/raw/main/linux/bash/termux/bashrc_termux > .bashrc
     ```
+    OR
+    ```
+    wget https://github.com/exa18/shell-scripting/raw/main/linux/bash/termux/bashrc_termux
+    cp bashrc_termux .bashrc
+    ``` 
 5. restart shell: **exec bash**
