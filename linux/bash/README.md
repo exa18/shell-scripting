@@ -16,6 +16,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - psd2jpg :: convert all .psd to .jpg in current folder
 - psk :: shows collected wifi passwords
 - u :: execute full update
+- findusb :: determine usb port of device
 
 ##### with args
 
