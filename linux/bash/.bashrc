@@ -82,5 +82,5 @@ exec {BASH_XTRACEFD}>/dev/null
 #
 nc='\[\e[0m\]'
 PS1="\[\e[30;44m\]\u$nc"; [ "$UID" -eq "0" ] && PS1="\[\e[1;91m\]@$nc"
-PS1="$PS1 \[\e[1;96m\]\w >\[\e[34m\]>$nc "
+PS1="$nc$PS1 \[\e[1;96m\]\w >\[\e[34m\]>$nc "
 
