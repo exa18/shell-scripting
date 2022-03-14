@@ -16,35 +16,17 @@ shopt -s checkwinsize
 shopt -s autocd
 shopt -s histappend
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    alias ls='ls --color=auto --time-style=iso'
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -81,6 +63,23 @@ exec {BASH_XTRACEFD}>/dev/null
 #   ------------ PROMPT
 #
 nc='\[\e[0m\]'
-PS1="\[\e[30;44m\]\u$nc"; [ "$UID" -eq "0" ] && PS1="\[\e[1;91m\]@$nc"
-PS1="$nc$PS1 \[\e[1;96m\]\w >\[\e[34m\]>$nc "
+#PS1="\[\e[30;44m\]\u$nc"; [ "$UID" -eq "0" ] && PS1="\[\e[1;91m\]@$nc"
+#PS1="$nc$PS1 \[\e[1;96m\]\w >\[\e[34m\]>$nc "
 
+prompt='\[\e[1;34m\]'
+info='\[\e[30;44m\]'
+path='\[\e[1;96m\]'
+if [ "$UID" -eq "0" ]; then
+	prompt='\[\e[0;31m\]'
+	info='\[\e[30;41m\]'
+	path='\[\e[1;91m\]'
+fi
+#show_host='╱\h'
+
+# TWOLINE
+#┌── user╱host ──┤~│
+#└─┤
+PS1=$nc$prompt'┌──'$nc$info' \u${show_host} '$nc$prompt'──┤'$path'\w'$prompt'│\n'$nc$prompt'└─┤'$nc
+# ONELINE
+# user╱host ─┤~│ 
+#PS1=$nc$info' \u '$nc$prompt'─┤'$path'\w'$prompt'│ '$nc
