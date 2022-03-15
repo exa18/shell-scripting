@@ -1,7 +1,6 @@
 #!/bin/bash
 
 sudo ls >/dev/null
-
 echo Performing UPDATE...
 echo 
 echo ... Update
@@ -21,7 +20,9 @@ LANG=en_US.UTF-8 snap list --all | awk '/disabled/{print $1, $3}' |
     done
 
 echo ... Purge residual configs
+set -u
 dpkg -l | grep '^rc' | awk '{print $2}' | xargs -r dpkg --purge
+set +u
 
 echo DONE.
 
