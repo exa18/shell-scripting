@@ -23,6 +23,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - l. :: list hidden (begins with dot)
 - l :: list entires as columns and with indicator
 - ll :: same as above but as expanded
+- ip :: just add colors
 - i :: install package with yes agree on
 - I :: reinstall package
 - s :: list repos

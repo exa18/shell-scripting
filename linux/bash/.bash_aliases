@@ -10,6 +10,7 @@ export SH_SPIN="/-\|"
 alias ll='ls -alFh'
 alias l='ls -CF'
 alias l.='ls -dF .*'
+alias ip='ip -c'
 alias dff='df -h | grep -P "(^File|\/sd)" --color=never'
 alias dus='du -h --max-depth=1 --exclude="lost+found"'
 alias cp='rsync -rav'
