@@ -7,50 +7,55 @@ This is setting for bash. Copy to your HOME.
 
 Updates all profiles with this set. Copies files with dot thru all users includes root.
 
-### Aliases
-
-##### NO args
-
-- dff :: shows all SD* usage
-- dus :: shows usage for all directories on actual level
-- psd2jpg :: convert all .psd to .jpg in current folder
-- psk :: shows collected wifi passwords
-- u :: execute full update
-- findusb :: determine usb port of device
-
-##### with args
-
-- l. :: list hidden (begins with dot)
-- l :: list entires as columns and with indicator
-- ll :: same as above but as expanded
-- ip :: just add colors
-- i :: install package with yes agree on
-- I :: reinstall package
-- s :: list repos
-- S :: show given package
-- r :: remove package with yes agree on
-- e :: empty will shows all executables scripts invoked SheBang (#!), or execute
-- cp :: uses rsync for copy
-- hist :: use grep phrase on .bash_history
-- m :: tizonia play content of folder given as arg // no args list entries // arg '--' list entries of folder given as second arg
-- ms :: tizonia audio search
-- ml :: tizonia audio playlist
-- sc :: shellcheck on bash with warrnings and errors only
-- jpgre :: resize all .jpg which was not scaled to given number of % width/higth // arg with number change % of resize
-- nmap :: with prepend sudo
-- tm :: change access and modification datetime with arg YYYYMMDDhhmm. Changes with only provided part of arg.
-- kc :: sync Keepass file local-remote with autochange detection (separate project)
-
-##### Variables
+## Aliases
+#### Variables
 
 - SH_MSX :: sets working directory for **m**
 - SH_JPGRE :: sets default % of resize for **jpgre**
 - SH_SPIN :: sets spin sequence for progress **jpgre** and **psd2jpg**
 
+#### COMMON
+- ll :: same as above but as expanded
+- l :: list entires as columns and with indicator
+- l. :: list hidden (begins with dot)
+- ip :: just add colors
+- dff :: shows all SD* usage
+- dus :: shows usage for all directories on actual level
+- cp :: uses rsync for copy
+- hist :: use grep phrase on .bash_history
+
+#### APT
+- i :: install package with yes agree on
+- I :: reinstall package
+- s :: list repos
+- S :: show given package
+- r :: remove package with yes agree on
+- u :: execute full update
+
+##### GFX
+- psd2jpg :: convert all .psd to .jpg in current folder
+- jpgre :: resize all .jpg which was not scaled to given number of % width/higth // arg with number change % of resize
+
+#### MSX
+- m :: tizonia play content of folder given as arg // no args list entries // arg '--' list entries of folder given as second arg
+- ms :: tizonia audio search
+- ml :: tizonia audio playlist
+
+##### TOOLS
+- sc :: shellcheck on bash with warrnings and errors only
+- nmap :: with prepend sudo
+- e :: empty will shows all executables scripts invoked SheBang (#!), or execute
+- tm :: change access and modification datetime with arg YYYYMMDDhhmm. Changes with only provided part of arg.
+- kc :: sync Keepass file local-remote with autochange detection (separate project)
+- psk :: shows collected wifi passwords
+- findusb :: determine usb port of device
+
+#### EDITOR
+- vi :: neovim
+- mi :: micro
+
 ### Unbundled
-
 Contains full and prettified some scripts of above aliases.
-
 
 ### Convert and problem with cache
 > Source from [HERE](https://stackoverflow.com/questions/31407010/cache-resources-exhausted-imagemagick#62512452)
@@ -84,7 +89,6 @@ to
 ```
 
 ## BASH.TERMUX
-
 Copy to your HOME under Termux on your Android device.
 
 ### Installation
