@@ -10,9 +10,15 @@ exec {BASH_XTRACEFD}>/dev/null
 #
 #	Aliases
 #
-alias l='ls -CF'
-alias l.='ls -dF .*'
-alias ll='ls -alFh'
+if [[ -n $(command -v exa) ]];then
+    alias l='exa -F'
+    alias l.='exa -dF .*'
+    alias ll='exa -alFh'
+else
+    alias l='ls -CF'
+    alias l.='ls -dF .*'
+    alias ll='ls -alFh'
+fi
 alias i='pkg install -y'
 alias I='pkg reinstall -y'
 alias S='pkg show'

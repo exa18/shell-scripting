@@ -9,9 +9,15 @@ export SH_SPIN="/-\|"
 #
 #   common
 #
-alias ll='ls -alFh'
-alias l='ls -CF'
-alias l.='ls -dF .*'
+if [[ -n $(command -v exa) ]];then
+    alias l='exa -F'
+    alias l.='exa -dF .*'
+    alias ll='exa -alFh'
+else
+    alias l='ls -CF'
+    alias l.='ls -dF .*'
+    alias ll='ls -alFh'
+fi
 alias ip='ip -c'
 alias dff='df -h | grep -P "(^File|\/sd)" --color=never'
 alias dus='du -h --max-depth=1 --exclude="lost+found"'
