@@ -9,6 +9,7 @@ This is setting for bash. Copy to your HOME.
 
 Here are choices which you enable in **.bashrc** inside set_prompt().
 In case no need GIT info just comment first line which contain it in parse_prompt().
+
 ![Bash Prompts preview](bash_prompts.png "Bash Prompts preview")
 
 ### Bashupdate.sh
