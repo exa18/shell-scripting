@@ -63,21 +63,6 @@ exec {BASH_XTRACEFD}>/dev/null
 #   ------------ PROMPT
 #
 nc='\[\e[0m\]'
-
-parse_prompt(){
-  psgit=
-  [[ ! $UID -eq 0 ]] && [[ -n $(command -v git) ]] && psgit="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
-  d="$(pwd)"
-  psprompt="${d/${HOME}/\~}"
-  if [[ -n "${psgit}" ]]; then
-    g="$(git rev-parse --show-toplevel)"
-    a="${g/${HOME}/\~}"
-    r="${a##*/}"
-    psprompt="$prompt$psgit $nc$path${a/${r}/''}$pathcheck$r$nc$path${d#${g}}"
-  fi
-  printf "$nc$psprompt$nc"
-}
-
 #show_host='╱\h'
 prompt='\[\e[1;34m\]'
 info='\[\e[30;44m\]'
@@ -90,20 +75,38 @@ if [[ $UID -eq 0 ]]; then
 	pathcheck='\[\e[1;91m\]'
 fi
 
-# SIMPLE
-# user╱host ~ >>
-#PS1="$info \u$show_host "; [[ $UID -eq 0 ]] && PS1="$info @ "
-#PS1="$nc$PS1$nc $path\w >$pathcheck>$nc "
+parse_prompt(){
+  psgit=
+  [[ ! $UID -eq 0 ]] && [[ -n $(command -v git) ]] && psgit="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
+  d="$(pwd)"
+  if [[ -n "$psgit" ]]; then
+    g="$(git rev-parse --show-toplevel)"
+    a="${g/${HOME}/\~}"
+    r="${a##*/}"
+    psprompt="$prompt$psgit $nc$path${a/${r}/''}$pathcheck$r$nc$path${d#${g}}"
+  else
+    [[ $UID -eq 0 ]] && a="${d}" || a="${d/${HOME}/\~}"
+    r="${a##*/}"
+    psprompt="$path${a/${r}/''}$nc$pathcheck$r"
+	fi
+  printf "$nc$psprompt$nc"
+}
 
-# in case no need GIT replease $(parse_prompt) with
-# $path\w OR $pathcheck\w
+# Create User/Host part which also detect if root
+[[ $UID -eq 0 ]] && user="$nc$info @$show_host $nc" || user="$nc$info \u$show_host $nc"
+
 set_prompt(){
+  # SIMPLE Oneline
+  # user╱host ~ >>
+  #PS1="$user $path$(parse_prompt) $path>$pathcheck>$nc "
+
 	# TWOLINE
 	#┌── user╱host ──┤~│
 	#└─┤
-	PS1="$nc$prompt┌──$nc$info \u$show_host $nc$prompt──┤$(parse_prompt)$prompt│\n└─┤$nc"
+	PS1="$nc$prompt┌──$user$prompt──┤$(parse_prompt)$prompt│\n└─┤$nc"
+
 	# ONELINE
 	# user╱host ─┤~│ 
-	#PS1="$nc$info \u$show_host $nc$prompt─┤$(parse_prompt)$prompt│ $nc"
+	#PS1="$user$prompt─┤$(parse_prompt)$prompt│ $nc"
 }
 PROMPT_COMMAND="set_prompt; $PROMPT_COMMAND"
