@@ -63,23 +63,46 @@ exec {BASH_XTRACEFD}>/dev/null
 #   ------------ PROMPT
 #
 nc='\[\e[0m\]'
-#PS1="\[\e[30;44m\]\u$nc"; [ "$UID" -eq "0" ] && PS1="\[\e[1;91m\]@$nc"
-#PS1="$nc$PS1 \[\e[1;96m\]\w >\[\e[34m\]>$nc "
 
+parse_prompt(){
+	psgit=
+        [[ ! $UID -eq 0 ]] && [[ -n $(command -v git) ]] && psgit="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
+        d="$(pwd)"
+        psprompt="${d/${HOME}/\~}"
+        if [[ -n "${psgit}" ]]; then
+                g="$(git rev-parse --show-toplevel)"
+		a="${g/${HOME}/\~}"
+		r="${a##*/}"
+                psprompt="$prompt$psgit $nc$path${a/${r}/''}$pathcheck$r$nc$path${d#${g}}"
+        fi
+        printf "$nc$psprompt$nc"
+}
+
+#show_host='╱\h'
 prompt='\[\e[1;34m\]'
 info='\[\e[30;44m\]'
-path='\[\e[1;96m\]'
-if [ "$UID" -eq "0" ]; then
+path='\[\e[0;96m\]'
+pathcheck='\[\e[1;96m\]'
+if [[ $UID -eq 0 ]]; then
 	prompt='\[\e[0;31m\]'
 	info='\[\e[30;41m\]'
-	path='\[\e[1;91m\]'
+	path='\[\e[0;91m\]'
+	pathcheck='\[\e[1;91m\]'
 fi
-#show_host='╱\h'
 
-# TWOLINE
-#┌── user╱host ──┤~│
-#└─┤
-PS1=$nc$prompt'┌──'$nc$info' \u${show_host} '$nc$prompt'──┤'$path'\w'$prompt'│\n'$nc$prompt'└─┤'$nc
-# ONELINE
-# user╱host ─┤~│ 
-#PS1=$nc$info' \u '$nc$prompt'─┤'$path'\w'$prompt'│ '$nc
+# SIMPLE
+# user╱host ~ >>
+#PS1="$info \u$show_host $nc"; [[ $UID -eq 0 ]] && PS1="$info @ $nc"
+#PS1="$nc$PS1 $path\w >$pathcheck>$nc "
+
+
+set_prompt(){
+	# TWOLINE
+	#┌── user╱host ──┤~│
+	#└─┤
+	PS1="$nc$prompt┌──$nc$info \u$show_host $nc$prompt──┤$(parse_prompt)$prompt│\n└─┤$nc"
+	# ONELINE
+	# user╱host ─┤~│ 
+	#PS1="$nc$info \u$show_host $nc$prompt─┤$(parse_prompt)$prompt│ $nc"
+}
+PROMPT_COMMAND="set_prompt; $PROMPT_COMMAND"
