@@ -1,7 +1,7 @@
 #
 #	VARIABLES (settings)
 #
-export SH_MSX="/media/hdd/WorkingBe/msx"
+export SH_MSX="/home/$USER/Music"
 export SH_JPGRE="40"
 export SH_SPIN="/-\|"
 #
