@@ -103,7 +103,7 @@ set_prompt(){
 	# TWOLINE
 	#┌── user╱host ──┤~│
 	#└─┤
-	PS1="$nc$prompt┌──$user$prompt──┤$(parse_prompt)$prompt│\n└─┤$nc"
+	PS1="$nc$prompt┌──$user$prompt──┤$(parse_prompt)$prompt│\n$prompt└─┤$nc"
 
 	# ONELINE
 	# user╱host ─┤~│ 
