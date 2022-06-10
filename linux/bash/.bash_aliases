@@ -9,6 +9,7 @@ export SH_SPIN="/-\|"
 #
 #   common
 #
+alias sudo='sudo '
 if [[ -n $(command -v exa) ]];then
     alias l='exa -F'
     alias l.='exa -dF .*'
@@ -62,3 +63,4 @@ alias findusb='for sysdevpath in $(find /sys/bus/usb/devices/usb*/ -name dev); d
 #
 [[ -n $(command -v nvim) ]] && alias vi='nvim'
 [[ -n $(command -v micro) ]] && alias mi='micro'
+[[ -n $(command -v nano) ]] && alias na='nano'
