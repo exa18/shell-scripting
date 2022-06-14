@@ -78,7 +78,7 @@ fi
 parse_prompt(){
   psgit=
   [[ ! $UID -eq 0 ]] && [[ -n $(command -v git) ]] && psgit="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
-  d="$(pwd)"
+  d="$(pwd -P)"
   if [[ -n "$psgit" ]]; then
     g="$(git rev-parse --show-toplevel)"
     a="${g/${HOME}/\~}"
