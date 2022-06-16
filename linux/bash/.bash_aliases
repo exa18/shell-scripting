@@ -4,6 +4,7 @@
 export SH_MSX="/home/$USER/Music"
 export SH_JPGRE="40"
 export SH_SPIN="/-\|"
+export SH_MSXPLAYER="mocp"	#tizonia|mocp
 #
 #	ALIASES
 #
@@ -32,7 +33,7 @@ alias I='sudo apt -y reinstall'
 alias S='apt show'
 alias s='apt list'
 alias r='sudo apt -y remove'
-alias u='s="sudo "; ${s}apt update -y && ${s}apt upgrade -y && ${s}apt autoremove -y; set -eu; LANG=en_US.UTF-8 snap list --all | awk '"'"'/disabled/{print $1, $3}'"'"' | while read snapname revision; do ${s}snap remove "$snapname" --revision="$revision"; done; set -u; dpkg -l | grep "^rc" | awk '"'"'{print $2}'"'"' | xargs -r ${s}dpkg --purge; set +u'
+alias u='s="sudo ";${s}apt update -y && ${s}apt upgrade -y && ${s}apt autoremove -y; set -eu; LANG=en_US.UTF-8 snap list --all | awk '"'"'/disabled/{print $1, $3}'"'"' | while read snapname revision; do ${s}snap remove "$snapname" --revision="$revision"; done; set -u; dpkg -l | grep "^rc" | awk '"'"'{print $2}'"'"' | xargs -r ${s}dpkg --purge; set +u'
 #
 #	gfx
 #
@@ -43,11 +44,34 @@ fi
 #
 #	msx
 #
-if [[ -n $(command -v tizonia) ]];then
+case $SH_MSXPLAYER in
+tizonia)
+	#
+	#	TIZONIA
+	#
+	if [[ -n $(command -v $SH_MSXPLAYER) ]];then
 alias m='msx(){ if [ -z "$1" ] || [ "$1" = "--" ];then [ -d $SH_MSX/$2 ] && ls -1 "$SH_MSX/$2"; else [ -d $SH_MSX/$1 ] && tizonia "$SH_MSX/$1"; fi; };msx'
 alias ms='tizonia --youtube-audio-search'
 alias ml='tizonia --youtube-audio-playlist'
-fi
+	fi;;
+mocp)
+	#
+	#	MOCP
+	#
+	if [[ -n $(command -v $SH_MSXPLAYER) ]];then
+msxserver(){
+	mocp -S > /dev/null 2>&1
+}
+msxserver
+alias m='msx(){ mocp --info;echo "*";if [ -z "$1" ] || [ "$1" = "--" ];then [ -d $SH_MSX/$2 ] && ls -1 "$SH_MSX/$2"; else [ -d $SH_MSX/$1 ] && mocp -c && mocp --append $SH_MSX/$1 && mocp --play; fi; };msx'
+alias ms='mocp --toggle-pause'
+alias mS='[[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play || mocp --stop'
+alias mx='msxserver;[[ -e ~/.moc/playlist.m3u ]] && [[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play;mocp'
+alias mn='mocp --next'
+alias mp='mocp --previous'
+alias mX='mocp -x'
+	fi;;
+esac
 #
 #	tools
 #

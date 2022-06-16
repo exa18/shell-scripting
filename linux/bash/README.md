@@ -20,6 +20,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 #### Variables
 
 - SH_MSX :: sets working directory for **m**
+- SH_MSXPLAYER :: choose wich player to use **tizonia|mocp**
 - SH_JPGRE :: sets default % of resize for **jpgre**
 - SH_SPIN :: sets spin sequence for progress **jpgre** and **psd2jpg**
 
@@ -46,9 +47,16 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - jpgre :: resize all .jpg which was not scaled to given number of % width/higth // arg with number change % of resize
 
 #### MSX
-- m :: tizonia play content of folder given as arg // no args list entries // arg '--' list entries of folder given as second arg
+- m :: play content of folder given as arg // no args list entries // arg '--' list entries of folder given as second arg
+1. TIZONIA
 - ms :: tizonia audio search
 - ml :: tizonia audio playlist
+2. MOCP (in case config set on file **chmod g-r,o-r**)
+- ms :: toggle PAUSE
+- mS :: toggle PLAY/STOP
+- mx :: start mocp server, if stoped and playlist then playit, enter GUI
+- mX :: shutdown mocp server
+- mn/mp :: next/previous track
 
 ##### TOOLS
 - sc :: shellcheck on bash with warrnings and errors only
@@ -61,6 +69,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 
 #### EDITOR
 - vi :: neovim
+- na :: nano
 - mi :: micro
 
 ### Unbundled
