@@ -39,8 +39,8 @@ alias u='s="sudo ";${s}apt update && ${s}apt upgrade -y; apt list --upgradable 2
 #	gfx
 #
 if [[ -n $(command -v convert) ]];then
-alias psd2jpg='x=1 ; echo -n " "; for i in *.psd ; do echo -ne "\b$(spin)"; convert "$i[0]" -background white -flatten -quality 97 "${i%.*}.jpg" ; done ; echo -ne "\b"'
-alias jpgre='re(){ r="${SH_JPGRE}"; [[ -n "$1" ]] && r="${1}"; readarray -t arr <<< $(ls -1 *.jpg | grep -E -v "*_re*"); x=0; lc=${#arr[@]}; if [[ -n "$lc" ]]; then for i in "${arr[@]}"; do echo -ne "\r$(spin) ${x} / $(( x *100 / lc )) %"; convert "$i" -resize "${r}%" -sharpen 0x1 -quality 95 "${i%.*}_re${r}.jpg"; done; fi ; echo -ne "\r \n"; };re'
+alias psd2jpg='x=1 ; echo -n " "; for i in *.psd ; do echo -ne "\b$(fn_spin)"; convert "$i[0]" -background white -flatten -quality 97 "${i%.*}.jpg" ; done ; echo -ne "\b"'
+alias jpgre='re(){ r="${SH_JPGRE}"; [[ -n "$1" ]] && r="${1}"; readarray -t arr <<< $(ls -1 *.jpg | grep -E -v "*_re*"); x=0; lc=${#arr[@]}; if [[ -n "$lc" ]]; then for i in "${arr[@]}"; do echo -ne "\r$(fn_spin) ${x} / $(( x *100 / lc )) %"; convert "$i" -resize "${r}%" -sharpen 0x1 -quality 95 "${i%.*}_re${r}.jpg"; done; fi ; echo -ne "\r \n"; };re'
 fi
 #
 #	msx
@@ -60,14 +60,14 @@ mocp)
 	#	MOCP
 	#
 	if [[ -n $(command -v $SH_MSXPLAYER) ]];then
-msxserver(){
+fn_msxserver(){
 	mocp -S > /dev/null 2>&1
 }
-msxserver
+fn_msxserver
 alias m='msx(){ [[ $# -eq 0 ]] && mocp --info | grep -E --color=never "^(State|File|Title|TotalTime|TimeLeft)" && echo "*";if [[ -z "$1" ]] || [[ "$1" = "--" ]];then [[ -d $SH_MSX/$2 ]] && ls -1 "$SH_MSX/$2"; else [[ -d $SH_MSX/$1 ]] && mocp -c && mocp --append $SH_MSX/$1 && mocp --play; fi; };msx'
 alias ms='mocp --toggle-pause'
 alias mS='[[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play || mocp --stop'
-alias mx='msxserver;[[ -e ~/.moc/playlist.m3u ]] && [[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play;mocp'
+alias mx='fn_msxserver;[[ -e ~/.moc/playlist.m3u ]] && [[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play;mocp'
 alias mn='mocp --next'
 alias mp='mocp --previous'
 alias mX='mocp -x'
