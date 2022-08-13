@@ -8,16 +8,19 @@ ${s}ls >/dev/null
 echo Performing UPDATE...
 echo 
 echo ... Update
+${s}apt --fix-missing update
 ${s}apt update
 echo ... Upgrade
 ${s}apt upgrade -y
+${s}apt autoremove -y
 echo ... Check and upgrade those kept back
 # upgrade packages witch kept back
 #   list upgradable with removed warnings -> remove first line -> print all lines thru '/' ->
-#   -> for each: upgrade and mark as installed,automatic
+#   -> for each: upgrad/install-fix and mark as auto (installed,automatic)
 apt list --upgradable 2>/dev/null | sed 1d | awk -F/ '{print $1}' |
     while read pkg; do
-        ${s}apt upgrade -y $pkg
+        # upgrade and in case broken do install with fix
+        ${s}apt upgrade -y $pkg || ${s}apt install -y -f $pkg
         ${s}apt-mark auto $pkg
     done
 
@@ -41,5 +44,7 @@ set -u
 dpkg -l | grep '^rc' | awk '{print $2}' | xargs -r ${s}dpkg --purge
 set +u
 
+${s}apt clean
+${s}apt update
 echo DONE.
 
