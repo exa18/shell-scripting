@@ -37,14 +37,13 @@ LANG=en_US.UTF-8 snap list --all | awk '/disabled/{print $1, $3}' |
         S{s}snap remove "$snapname" --revision="$revision"
     done
 
-echo ... Autoremove
-${s}apt autoremove -y
 echo ... Purge residual configs
 set -u
 dpkg -l | grep '^rc' | awk '{print $2}' | xargs -r ${s}dpkg --purge
 set +u
 
-${s}apt clean
-${s}apt update
+echo ... Autoremove
+${s}apt autoremove -y
+${s}apt autoclean
 echo DONE.
 
