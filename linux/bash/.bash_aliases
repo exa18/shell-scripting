@@ -36,6 +36,10 @@ alias s='apt list 2>/dev/null | grep -E '
 alias r='sudo apt -y remove'
 alias u='s="sudo ";${s}apt --fix-missing update;${s}apt upgrade -y;${s}apt autoremove -y; apt list --upgradable 2>/dev/null | sed 1d | awk -F/ '"'"'{print $1}'"'"' | while read pkg; do ${s}apt upgrade -y ${pkg} || ${s}apt install -y -f ${pkg};${s}apt-mark auto ${pkg};done; set -eu; LANG=en_US.UTF-8 snap list --all | awk '"'"'/disabled/{print $1, $3}'"'"' | while read snapname revision; do ${s}snap remove "$snapname" --revision="$revision"; done; set -u; dpkg -l | grep "^rc" | awk '"'"'{print $2}'"'"' | xargs -r ${s}dpkg --purge; set +u;${s}apt autoremove -y;${s}apt autoclean'
 #
+#	video
+#
+[[ -n $(command -v ffmpeg) ]] && alias ffavi='fn_ffa(){ [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -map 0 -c:v libx264 -crf 20 -c:a libmp3lame -b:a 128k "./${1%.*}_h264.mkv";};fn_ffa'
+#
 #	gfx
 #
 if [[ -n $(command -v convert) ]];then
@@ -51,7 +55,7 @@ tizonia)
 	#	TIZONIA
 	#
 	if [[ -n $(command -v $SH_MSXPLAYER) ]];then
-alias m='msx(){ if [[ -z "$1" ]] || [[ "$1" = "--" ]];then [[ -d $SH_MSX/$2 ]] && ls -1 "$SH_MSX/$2"; else [[ -d $SH_MSX/$1 ]] && tizonia "$SH_MSX/$1"; fi; };msx'
+alias m='fn_msx(){ if [[ -z "$1" ]] || [[ "$1" = "--" ]];then [[ -d $SH_MSX/$2 ]] && ls -1 "$SH_MSX/$2"; else [[ -d $SH_MSX/$1 ]] && tizonia "$SH_MSX/$1"; fi; };fn_msx'
 alias ms='tizonia --youtube-audio-search'
 alias ml='tizonia --youtube-audio-playlist'
 	fi;;
@@ -64,7 +68,7 @@ fn_msxserver(){
 	mocp -S > /dev/null 2>&1
 }
 fn_msxserver
-alias m='msx(){ fn_msxserver; [[ $# -eq 0 ]] && mocp --info | grep -E --color=never "^(State|File|Title|TotalTime|TimeLeft)" && echo "*";if [[ -z "$1" ]] || [[ "$1" = "--" ]];then [[ -d $SH_MSX/$2 ]] && ls -1 "$SH_MSX/$2"; else [[ -d $SH_MSX/$1 ]] && mocp -c && mocp --append $SH_MSX/$1 && mocp --play; fi; };msx'
+alias m='fn_msx(){ fn_msxserver; [[ $# -eq 0 ]] && mocp --info | grep -E --color=never "^(State|File|Title|TotalTime|TimeLeft)" && echo "*";if [[ -z "$1" ]] || [[ "$1" = "--" ]];then [[ -d $SH_MSX/$2 ]] && ls -1 "$SH_MSX/$2"; else [[ -d $SH_MSX/$1 ]] && mocp -c && mocp --append $SH_MSX/$1 && mocp --play; fi; };fn_msx'
 alias ms='mocp --toggle-pause'
 alias mS='[[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play || mocp --stop'
 alias mx='fn_msxserver;[[ -e ~/.moc/playlist.m3u ]] && [[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play;mocp'

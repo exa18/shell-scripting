@@ -46,6 +46,9 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - psd2jpg :: convert all .psd to .jpg in current folder
 - jpgre :: resize all .jpg which was not scaled to given number of % width/higth // arg with number change % of resize
 
+##### VIDEO
+- ffavi :: convert any video to H.264/mkv crf/20 and audio mp3/48000Mhz/128k
+
 #### MSX
 - m :: play content of folder given as arg // no args list entries // arg '--' list entries of folder given as second arg
 1. TIZONIA
