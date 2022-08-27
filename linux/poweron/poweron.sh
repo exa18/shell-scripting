@@ -17,7 +17,7 @@
 		arr=
 		while [ -e $log ];do
 			readarray -t trr <<< "$(last -x runlevel --time-format iso -f $log | grep -Eo ".*${1}.*" | awk '{print $6"."$8}')"
-			arr+=(${trr[@]})
+			arr+=("${trr[@]}")
 			log=${log}'.'${x}
 			x=$((x+1))
 		done
