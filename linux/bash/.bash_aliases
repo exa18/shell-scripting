@@ -38,7 +38,7 @@ alias u='s="sudo ";${s}apt --fix-missing update;${s}apt upgrade -y;${s}apt autor
 #
 #	video
 #
-[[ -n $(command -v ffmpeg) ]] && alias ffavi='fn_ffa(){ [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -map 0 -c:v libx264 -crf 20 -c:a libmp3lame -b:a 128k "./${1%.*}_h264.mkv";};fn_ffa'
+[[ -n $(command -v ffmpeg) ]] && alias ffavi='fn_ffa(){ [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -map 0 -pix_fmt yuv420p -c:v libx264 -crf 21 -c:a libmp3lame -b:a 128k "./${1%.*}_h264.mkv";};fn_ffa'
 #
 #	gfx
 #
