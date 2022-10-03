@@ -1,15 +1,41 @@
 #### LINUX
 ## MailClean
 
-This script arhive and then removes old mail entries. Can be set as cron job.
+This script is for cleaning ./imap folder from growing files.
+Can be set as cron job.
+Also works on directory structure for **hekko/cyberfolks** or similar ->
+```<home>/imap/domain/*Maildir/cur```
 
-### Arg
+```
+<home>
+    /imap
+        /domain
+            /*  <- all boxes/users
+            /user1
+            /user2
+            /...
+                /Maildir/cur
+```
 
-If provided run for given domain name, if not run for all domains.
-Arg starting with -- will show verbosing.
+### Args
+
+Cleaning works for one domain not for "*".
+Starting domain with -- will show verbose.
+
+clean domain (days) (size)
+Remove/archive files older than (days)
+-- and for less than (size) MB make .zip and remove
+-- and greater than (size) MB just remove
+-- .zip stored at (archive-dir)
+
+scan (domain)
+-- checks how many GB saved with given days and size
+
+help (domain or "*") (days > 6) (size > 1)
+-- show help
 
 ### Cron entry
 
 ```
-/usr/bin/bash ~/mailclean.sh domain >/dev/null 2>&1
+/usr/bin/bash ~/mailclean.sh clean domain >/dev/null 2>&1
 ```
