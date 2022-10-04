@@ -20,19 +20,19 @@ Also works on directory structure for **hekko/cyberfolks** or similar ->
 ### Args
 
 Cleaning works for one domain not for "*".
-Starting domain with -- will show verbose.
+Starting domain with -- will turn on making zip.
 
-clean domain (days) (size)
+**clean** domain (days) (size)
 Remove/archive files older than (days)
--- and for less than (size) MB make .zip and remove
--- and greater than (size) MB just remove
+-- and less than (size) MB make .zip if domain prefixed and do remove
+-- and greater than (size) MB do remove
 -- .zip stored at (archive-dir)
 
-scan (domain)
+**scan** (domain)
 -- checks how many GB saved with given days and size
 
-help (domain or "*") (days > 6) (size > 1)
--- show help
+**help** (domain or "*") (days > 6) (size > 1)
+-- show help and check settings
 
 ### Cron entry
 

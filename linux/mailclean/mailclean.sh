@@ -4,13 +4,17 @@
 #
 flag="${1}"
 shift
-#   prepare paths
-verbose=    # verbose if arg starts with --
-[[ -n "${1}" ]] && domain="${1#--*}" && verbose="${1::2}" # set domain name
+#
+[[ -n "${1}" ]] && domain="${1#--*}" && dozip="${1::2}" # set domain name
 [[ -z "${domain}" ]] && domain="*"
+if [[ "${dozip}" = "--" ]];then
+    dozip="make .zip and "
+else
+    dozip=
+fi
 #
 #   // Real path on server
-#
+#6
 dir="${HOME}/imap/${domain}"
 d="${dir}/*/Maildir/cur/"
 #
@@ -36,8 +40,8 @@ case "${flag}" in
 #
 #   Check savings
 ##
-echo "Domain: ${domain}"
-echo "Counting for: ${d}"
+echo "Start scaning: ${domain}"
+
     # print days header
     echo -ne "\nD> :"  
     for at in "${ft[@]}";do
@@ -68,20 +72,22 @@ done
 #
 [[ -d $dir ]] || exit 1
 #
-[[ "${verbose}" = "--" ]] && echo -e "Start cleaning for domain: ${domain}\n...making ZIParhive: ${t}.zip"
+echo "Start cleaning for: ${domain}"
 #
 #   REMOVE and archive files less than limit and also clean up old .zip
-[[ "${verbose}" = "--" ]] && echo -n "Archive files older than ${at} days and less than ${as} MB"
-find $d -maxdepth 1 -type f -name "*" -mtime +${at} -size -${as}M -print | zip -@q9 ${arh}${t}.zip
-find $arh -maxdepth 1 -type f -name "*.zip" -mtime +${at} | xargs -r rm
-[[ "${verbose}" = "--" ]] && echo " also remove them."
+if [[ -n "${dozip}" ]];then
+    echo -n "Archive files older than ${at} days and less than ${as} MB to ${t}.zip"
+    find $d -maxdepth 1 -type f -name "*" -mtime +${at} -size -${as}M -print | zip -@q9 ${arh}${t}.zip
+    find $arh -maxdepth 1 -type f -name "*.zip" -mtime +${at} | xargs -r rm
+fi
+[[ -n "${dozip}" ]] && echo " also remove them." || echo "Remove files older than ${at} days and less than ${as} MB"
 find $d -maxdepth 1 -type f -name "*" -mtime +${at} -size -${as}M | xargs -r rm
 #
 #   REMOVE LARGE files
 #
-[[ "${verbose}" = "--" ]] && echo "Remove files older than ${at} days and greater then ${as} MB"
+echo "Remove files older than ${at} days and greater than ${as} MB"
 find $d -maxdepth 1 -type f -name "*" -mtime +${at} -size +${as}M | xargs -r rm
-[[ "${verbose}" = "--" ]] && echo "DONE."
+echo "DONE."
     ;;
     "help" | * )
 cat << _EOF_
@@ -89,12 +95,13 @@ cat << _EOF_
 Working with directory:
 ${d}
 
--- directory structure true for hekko/cyberfolks
+Domain prefixed with "--" will turn on making ZIP
+for smaller files.
 
 clean domain
 Files older than ${at} days
-#   and less than ${as} MB make .zip and remove
-#   and greater than ${as} MB just remove
+#   and less than ${as} MB ${dozip}do remove
+#   and greater than ${as} MB do remove
 #   .zip stored at ${arh}
 
 scan (domain)
