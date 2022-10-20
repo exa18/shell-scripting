@@ -31,9 +31,15 @@ ft=( 30 45 90 180 360 )
 at=${ft[-1]}
 as=${fs[0]}
 # days minimum 7
-[[ ${2} -gt 6 ]]  && [[ -n "${2}" ]] && at=${2}
+if [[ ${2} -gt 6 ]]  && [[ -n "${2}" ]];then
+	at=${2}
+	ft=(${ft[@]} ${at})
+fi
 # size minimum 2 MB
-[[ ${3} -gt 1 ]]  && [[ -n "${3}" ]] && as=${3}
+if [[ ${3} -gt 1 ]]  && [[ -n "${3}" ]];then
+	as=${3}
+	fs=(${fs[@]} ${as})
+fi
 
 case "${flag}" in
     "scan" )

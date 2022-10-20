@@ -28,7 +28,7 @@ Remove/archive files older than (days)
 -- and greater than (size) MB do remove
 -- .zip stored at (archive-dir)
 
-**scan** (domain)
+**scan** (domain) (days) (size)
 -- checks how many GB saved with given days and size
 
 **help** (domain or "*") (days > 6) (size > 1)
