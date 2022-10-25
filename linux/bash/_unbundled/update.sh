@@ -8,7 +8,6 @@ ${s}ls >/dev/null
 echo Performing UPDATE...
 echo 
 echo ... Update
-${s}apt --fix-missing update
 ${s}apt update
 echo ... Upgrade
 ${s}apt upgrade -y
@@ -17,14 +16,17 @@ echo ... Check and upgrade those kept back
 # upgrade packages witch kept back
 #   list upgradable with removed warnings -> remove first line -> print all lines thru '/' ->
 #   -> for each: upgrad/install-fix and mark as auto (installed,automatic)
-apt list --upgradable 2>/dev/null | sed 1d | awk -F/ '{print $1}' |
+readarray -t pkg <<< $(apt list --upgradable 2>/dev/null | sed 1d | awk -F/ '{print $1}')
+if [[ -n "${pkg}" ]];then
+    echo ...:... Reinstall broken
+    ${s}apt --fix-missing update
+    ${s}apt update
     while read pkg; do
         # upgrade and in case broken do install with fix
-        ${s}apt upgrade -y $pkg || ${s}apt install -y -f $pkg
-        ${s}apt-mark auto $pkg
+            [[ -n "${pkg##*nvidia*}" ]] && ${s}apt install -y -f ${pkg} && ${s}apt-mark auto ${pkg}
     done
-
 echo 
+fi
 #
 # REMOVING section
 #
