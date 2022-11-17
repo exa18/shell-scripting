@@ -34,7 +34,7 @@ alias I='sudo apt -y reinstall'
 alias S='apt show'
 alias s='apt list 2>/dev/null | grep -E'
 alias r='sudo apt -y remove'
-alias u='s="sudo ";${s}apt update; ${s}apt upgrade -y; ${s}apt autoremove -y; readarray -t pkg <<< $(apt list --upgradable 2>/dev/null | sed 1d | awk -F/ '"'"'{print $1}'"'"'); if [[ -n "${pkg}" ]];then ${s}apt --fix-missing update; ${s}apt update; while read pkg; do [[ -n "${pkg##*nvidia*}" ]] && ${s}apt install -y -f ${pkg} && ${s}apt-mark auto ${pkg};done; fi; set -eu; LANG=en_US.UTF-8 snap list --all | awk '"'"'/disabled/{print $1, $3}'"'"' | while read snapname revision; do ${s}snap remove "$snapname" --revision="$revision"; done; set -u; dpkg -l | grep "^rc" | awk '"'"'{print $2}'"'"' | xargs -r ${s}dpkg --purge; set +u;${s}apt autoremove -y;${s}apt autoclean'
+alias u='s="sudo "; ${s}apt update; ${s}apt upgrade -y; ${s}apt autoremove -y; set -eu; LANG=en_US.UTF-8 snap list --all | awk '"'"'/disabled/{print $1, $3}'"'"' | while read snapname revision; do ${s}snap remove "$snapname" --revision="$revision"; done; set -u; dpkg -l | grep "^rc" | awk '"'"'{print $2}'"'"' | xargs -r ${s}dpkg --purge; set +u;${s}apt autoremove -y; readarray -t pkg <<< "$(apt list --upgradable 2>/dev/null | sed 1d | awk -F/ '"'"'{print $1}'"'"')"; if [[ -n "${pkg[0]}" ]];then ${s}apt --fix-missing update; ${s}apt update; for p in "${pkg[@]}"; do if [[ -n "${p##*nvidia*}" ]];then ${s}apt upgrade -y ${p} || ${s}apt install -y -f ${p}; ${s}apt-mark auto ${p}; fi; done; ${s}apt autoremove -y; fi'
 #
 #	video
 #
