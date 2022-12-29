@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+#
+getkeptback() {
+	readarray -t pkg <<< "$(apt list --upgradable 2>/dev/null | sed 1d | awk -F/ '{print $1}')"
+}
+
+#
+#
 s='sudo '
 #
 ${s}ls >/dev/null
@@ -28,26 +36,30 @@ set -u
 dpkg -l | grep '^rc' | awk '{print $2}' | xargs -r ${s}dpkg --purge
 set +u
 
-echo -e "\n... Autoremove"
-${s}apt autoremove -y
 echo -e "\n... Check and upgrade those kept back"
 # upgrade packages witch kept back
 #   list upgradable with removed warnings -> remove first line -> print all lines thru '/' ->
 #   -> for each: upgrad/install-fix and mark as auto (installed,automatic)
-readarray -t pkg <<< "$(apt list --upgradable 2>/dev/null | sed 1d | awk -F/ '{print $1}')"
+	getkeptback
 if [[ -n "${pkg[0]}" ]];then
-    echo "...:... Reinstall (fix) broken"
+    echo "...:... Safe upgrade packages have been kept back"
     ${s}apt --fix-missing update
-    ${s}apt update
-    for p in "${pkg[@]}"; do
-        # upgrade and in case broken do install with fix
-        if [[ -n "${p##*nvidia*}" ]];then
-                    ${s}apt upgrade -y ${p} || ${s}apt install -y -f ${p}
-                    ${s}apt-mark auto ${p}
-        fi
-    done
+    ${s}aptitude safe-upgrade -y
+	getkeptback
+	if [[ -n "${pkg[0]}" ]];then
+	    echo "...:... Upgrade rest"
+	    for p in "${pkg[@]}"; do
+		if [[ -n "${p##*nvidia*}" ]];then
+			${s}apt upgrade -y ${p}
+#			    ${s}apt upgrade -y ${p} || ${s}apt install -y -f ${p}
+#			    ${s}apt-mark auto ${p}
+		fi
+		# upgrade only kernel which upgrades rest
+		[[ -z "${p##*nvidia-kernel-common-*}" ]] &&  ${s}apt upgrade -y ${p}
+	    done
+	fi
+fi
     echo -e "\n... Clean and autoremove"
     ${s}apt autoremove -y
-fi
 echo -e "\n... DONE."
 
