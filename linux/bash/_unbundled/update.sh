@@ -44,7 +44,7 @@ echo -e "\n... Check and upgrade those kept back"
 if [[ -n "${pkg[0]}" ]];then
     echo "...:... Safe upgrade packages have been kept back"
     ${s}apt --fix-missing update
-    ${s}aptitude safe-upgrade -y
+    ${s}aptitude safe-upgrade --full-resolver -y
 	getkeptback
 	if [[ -n "${pkg[0]}" ]];then
 	    echo "...:... Upgrade rest"
