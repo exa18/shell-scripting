@@ -13,13 +13,13 @@ fn_spin(){ echo "${SH_SPIN:x++%${#SH_SPIN}:1}"; }
 #
 alias sudo='sudo '
 if [[ -n $(command -v exa) ]];then
-    alias l='exa -F'
-    alias l.='exa -dF .*'
-    alias ll='exa -alFh'
+	alias l='exa -F'
+	alias l.='exa -dF .*'
+	alias ll='exa -alFh'
 else
-    alias l='ls -CF'
-    alias l.='ls -dF .*'
-    alias ll='ls -alFh'
+	alias l='ls -CF'
+	alias l.='ls -dF .*'
+	alias ll='ls -alFh'
 fi
 alias ip='ip -c'
 alias dff='df -h | grep -P "(^File|\/sd)" --color=never'
@@ -87,6 +87,11 @@ alias tm='tmdd(){ local arr=("${1::4}" "${1:4:2}" "${1:6:2}" "${1:8:2}" "${1:10:
 alias kc='[[ -e ~/kc.sh ]] && ~/kc.sh || echo "KC.sh not found"'
 alias psk='sudo grep psk= /etc/NetworkManager/system-connections/* | awk -F/ '"'"'{print $NF}'"'"' '
 alias findusb='for sysdevpath in $(find /sys/bus/usb/devices/usb*/ -name dev); do ( syspath="${sysdevpath%/dev}"; devname="$(udevadm info -q name -p $syspath)"; [[ "$devname" == "bus/"* ]] && exit || eval "$(udevadm info -q property --export -p $syspath)"; [[ -z "$ID_SERIAL" ]] && exit || echo "/dev/$devname - $ID_SERIAL"; ); done'
+#
+#	tools for USB device write
+#
+alias ddw='ddww(){ [[ -e $1 ]] && [[ -n "${2}" ]] && [[ -e /dev/$2 ]] && sudo dd bs=4M if=$1 of=/dev/$2 oflag=sync status=progress; };ddww'
+alias ddc='ddcc(){ [[ -n "${1}" ]] && [[ -e /dev/$1 ]] && sudo dd bs=4M if=/dev/zero of=/dev/$1 oflag=sync status=progress; };ddcc'
 #
 #	editor
 #

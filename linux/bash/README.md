@@ -29,7 +29,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - l :: list entires as columns and with indicator
 - l. :: list hidden (begins with dot)
 - ip :: just add colors
-- dff :: shows all SD* usage
+- dff :: shows all /dev/sd* usage
 - dus :: shows usage for all directories on actual level
 - cp :: uses rsync for copy
 - hist :: use grep phrase on .bash_history
@@ -40,7 +40,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - s :: list repos
 - S :: show given package
 - r :: remove package with yes agree on
-- u :: execute full update
+- u :: execute full update (but no distro), regular update, checking kept back with safe update, safe nvidia update, clean dpkg and snaps
 
 ##### GFX
 - psd2jpg :: convert all .psd to .jpg in current folder
@@ -69,6 +69,8 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - kc :: sync Keepass file local-remote with autochange detection (separate project)
 - psk :: shows collected wifi passwords
 - findusb :: determine usb port of device
+- ddw :: write IMG to (USB) drive, exp. ddw sde raspberry.img
+- ddc :: clear (USB) drive, exp. ddc sde
 
 #### EDITOR
 - vi :: neovim
