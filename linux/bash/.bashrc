@@ -4,8 +4,8 @@
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+		*i*) ;;
+			*) return;;
 esac
 
 HISTCONTROL=ignoreboth
@@ -21,26 +21,26 @@ shopt -s histappend
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto --time-style=iso'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+		test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+		alias ls='ls --color=auto --time-style=iso'
+		alias grep='grep --color=auto'
+		alias fgrep='fgrep --color=auto'
+		alias egrep='egrep --color=auto'
 fi
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+		. ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		. /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		. /etc/bash_completion
+	fi
 fi
 #
 #   ----------- MODS
@@ -76,29 +76,29 @@ if [[ $UID -eq 0 ]]; then
 fi
 
 parse_prompt(){
-  psgit=
-  [[ ! $UID -eq 0 ]] && [[ -n $(command -v git) ]] && psgit="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
-  d="$(pwd -P)"
-  if [[ -n "$psgit" ]]; then
-    g="$(git rev-parse --show-toplevel)"
-    a="${g/${HOME}/\~}"
-    r="${a##*/}"
-    psprompt="$prompt$psgit $nc$path${a/${r}/''}$pathcheck$r$nc$path${d#${g}}"
-  else
-    [[ $UID -eq 0 ]] && a="${d}" || a="${d/${HOME}/\~}"
-    r="${a##*/}"
-    psprompt="$path${a/${r}/''}$nc$pathcheck$r"
+	psgit=
+	[[ ! $UID -eq 0 ]] && [[ -n $(command -v git) ]] && psgit="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
+	d="$(pwd -P)"
+	if [[ -n "$psgit" ]]; then
+		g="$(git rev-parse --show-toplevel)"
+		a="${g/${HOME}/\~}"
+		r="${a##*/}"
+		psprompt="$prompt$psgit $nc$path${a/${r}/''}$pathcheck$r$nc$path${d#${g}}"
+	else
+		[[ $UID -eq 0 ]] && a="${d}" || a="${d/${HOME}/\~}"
+		r="${a##*/}"
+		psprompt="$path${a/${r}/''}$nc$pathcheck$r"
 	fi
-  printf "$nc$psprompt$nc"
+	printf "$nc$psprompt$nc"
 }
 
 # Create User/Host part which also detect if root
 [[ $UID -eq 0 ]] && user="$nc$info @$show_host $nc" || user="$nc$info \u$show_host $nc"
 
 set_prompt(){
-  # SIMPLE Oneline
-  # user╱host ~ >>
-  #PS1="$user $path$(parse_prompt) $path>$pathcheck>$nc "
+	# SIMPLE Oneline
+	# user╱host ~ >>
+	#PS1="$user $path$(parse_prompt) $path>$pathcheck>$nc "
 
 	# TWOLINE
 	#┌── user╱host ──┤~│
