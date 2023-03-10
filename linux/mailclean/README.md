@@ -31,6 +31,9 @@ Remove/archive files older than (days)
 **scan** (domain) (days) (size)
 -- checks how many GB saved with given days and size
 
+**datefix** (domain)
+-- fix modification date to inside delivery instead current which was taken after copy
+
 **help** (domain or "*") (days > 6) (size > 1)
 -- show help and check settings
 
