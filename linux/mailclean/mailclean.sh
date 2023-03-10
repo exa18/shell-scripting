@@ -44,24 +44,32 @@ if [[ ${3} -gt 1 ]]  && [[ -n "${3}" ]];then
 fi
 
 case "${flag}" in
-    "datefix" )
 #
 #   Fix date from file after copy
 #
+    "datefix" )
+#
     echo "Fixing modification date: ${domain}"
+    x=0
     for dd in "${cur[@]}";do
         readarray -t ff <<< "$(find "${dd}" -maxdepth 1 -type f -name "*" -print)"
         if [[ ${#ff[@]} -gt 0 ]];then
             for f in "${ff[@]}";do
-                dat="$(head -n 20 "${f}" | grep "Delivery-date: " | awk -F ": " '{print $NF}')"
-                [[ -n "${dat}" ]] && touch -a -m --date="${dat}" "${f}"
+                if [[ -e "${f}" ]];then
+                    dat="$(head -n 20 "${f}" | grep "Delivery-date: " | awk -F ": " '{print $NF}')"
+                    if [[ -n "${dat}" ]];then
+                        touch -a -m --date="${dat}" "${f}" &&  x=$((x+1)) && echo -ne "\r${x}" 
+                    fi
+                fi
             done
         fi
     done
+    echo -e "\nDONE."
     ;;
-    "scan" )
 #
 #   Check savings
+#
+    "scan" )
 #
 echo "Start scaning: ${domain}"
 
@@ -89,9 +97,10 @@ for as in "${fs[@]}";do
     echo -e "\n"
 done
     ;;
-    "clean" )
 #
 #   Cleaning
+#
+    "clean" )
 #
 [[ -d $dir ]] || exit 1
 #
@@ -100,7 +109,7 @@ echo "Start cleaning for: ${domain}"
 #   REMOVE and archive files less than limit and also clean up old .zip
 if [[ -n "${dozip}" ]];then
     echo -n "Archive files older than ${at} days and less than ${as} MB to ${t}.zip"
-    echo $(for dd in "${cur[@]}";do find "${dd}" -maxdepth 1 -type f -name "*" -mtime +${at} -size -${as}M -print;done;) | zip -@q9 ${arh}${t}.zip
+    echo "$(for dd in "${cur[@]}";do find "${dd}" -maxdepth 1 -type f -name "*" -mtime +${at} -size -${as}M -print;done;)" | zip -@q9 "${arh}${t}.zip"
     find "${arh}" -maxdepth 1 -type f -name "*.zip" -mtime +${at} -delete
 fi
 [[ -n "${dozip}" ]] && echo " also remove them." || echo "Remove files older than ${at} days and less than ${as} MB"
@@ -113,7 +122,11 @@ done
 #
 echo "DONE."
     ;;
+#
+#   HELP
+#
     "help" | * )
+#
 cat << _EOF_
 
 Working with directory:
