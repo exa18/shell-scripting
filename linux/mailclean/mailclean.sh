@@ -72,6 +72,7 @@ case "${flag}" in
     "scan" )
 #
 echo "Start scaning: ${domain}"
+echo "Counting in GB for files greater or less in MB"
 
     # print days header
     echo -ne "\nD> :"  
@@ -112,12 +113,17 @@ if [[ -n "${dozip}" ]];then
     echo "$(for dd in "${cur[@]}";do find "${dd}" -maxdepth 1 -type f -name "*" -mtime +${at} -size -${as}M -print;done;)" | zip -@q9 "${arh}${t}.zip"
     find "${arh}" -maxdepth 1 -type f -name "*.zip" -mtime +${at} -delete
 fi
-[[ -n "${dozip}" ]] && echo " also remove them." || echo "Remove files older than ${at} days and less than ${as} MB"
+[[ -n "${dozip}" ]] && echo " also remove them." || echo "Remove files older than ${at} days and greater than ${as} MB"
 for dd in "${cur[@]}";do
-    # REMOVE SMALL
-    find "${dd}" -maxdepth 1 -type f -name "*" -mtime +${at} -size -${as}M -delete
-    #   REMOVE LARGE files
-    find "${dd}" -maxdepth 1 -type f -name "*" -mtime +${at} -size +${as}M -delete
+    #   REMOVE SMALL
+    #find "${dd}" -maxdepth 1 -type f -name "*" -mtime +${at} -size -${as}M -delete
+    if [[ -n "${dozip}" ]];then
+        #   REMOVE ALL
+        find "${dd}" -maxdepth 1 -type f -name "*" -mtime +${at} -delete
+    else
+        #   REMOVE LARGE only
+        find "${dd}" -maxdepth 1 -type f -name "*" -mtime +${at} -size +${as}M -delete
+    fi
 done
 #
 echo "DONE."
