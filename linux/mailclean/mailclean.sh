@@ -56,7 +56,7 @@ case "${flag}" in
         if [[ ${#ff[@]} -gt 0 ]];then
             for f in "${ff[@]}";do
                 if [[ -e "${f}" ]];then
-                    dat="$(head -n 20 "${f}" | grep "Delivery-date: " | awk -F ": " '{print $NF}')"
+                    dat="$(head -n 20 "${f}" | grep -E "(Delivery-date|Date): " | awk -F ": " '{print $NF}')"
                     if [[ -n "${dat}" ]];then
                         touch -a -m --date="${dat}" "${f}" &&  x=$((x+1)) && echo -ne "\r${x}" 
                     fi
