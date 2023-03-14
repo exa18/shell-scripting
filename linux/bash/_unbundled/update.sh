@@ -15,7 +15,7 @@ ${s}ls >/dev/null
 #
 echo -e "\nPerforming UPDATE..."
 echo "... Update repos"
-${s}apt update
+${s}apt update -y
 echo -e "\n... Upgrade"
 ${s}apt upgrade -y
 ${s}apt autoremove -y
@@ -43,7 +43,7 @@ echo -e "\n... Check and upgrade those kept back"
 	getkeptback
 if [[ -n "${pkg[0]}" ]];then
     echo "...:... Safe upgrade packages have been kept back"
-    ${s}apt --fix-missing update
+    ${s}apt --fix-missing update -y
     ${s}aptitude safe-upgrade --full-resolver -y
 	getkeptback
 	if [[ -n "${pkg[0]}" ]];then
