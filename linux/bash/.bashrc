@@ -83,11 +83,11 @@ parse_prompt(){
 		g="$(git rev-parse --show-toplevel)"
 		a="${g/${HOME}/\~}"
 		r="${a##*/}"
-		psprompt="$prompt$psgit $nc$path${a/${r}/''}$pathcheck$r$nc$path${d#${g}}"
+		psprompt="$prompt$psgit $nc$path${a%%${r}}$pathcheck$r$nc$path${d#${g}}"
 	else
 		[[ $UID -eq 0 ]] && a="${d}" || a="${d/${HOME}/\~}"
 		r="${a##*/}"
-		psprompt="$path${a/${r}/''}$nc$pathcheck$r"
+		psprompt="$path${a%%${r}}$nc$pathcheck$r"
 	fi
 	printf "$nc$psprompt$nc"
 }
