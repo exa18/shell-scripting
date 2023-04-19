@@ -61,5 +61,12 @@ if [[ -n "${pkg[0]}" ]];then
 fi
     echo -e "\n... Clean and autoremove"
     ${s}apt autoremove -y
+
+# ESM Apps related to Ubuntu Pro -> remove nag durring update
+for f in /etc/apt/apt.conf.d/*apt-esm-hook.con*;do
+	[[ ! -d ${f%/*}/off ]] && ${s}mkdir ${f%/*}/off
+	[[ -e $f ]] && ${s}mv -f $f ${f%/*}/off
+done
+
 echo -e "\n... DONE."
 
