@@ -16,6 +16,9 @@ shopt -s checkwinsize
 shopt -s autocd
 shopt -s histappend
 
+# simple oneline twoline
+PROMPT_STYLE=twoline
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -96,17 +99,23 @@ parse_prompt(){
 [[ $UID -eq 0 ]] && user="$nc$info @$show_host $nc" || user="$nc$info \u$show_host $nc"
 
 set_prompt(){
-	# SIMPLE Oneline
-	# user╱host ~ >>
-	#PS1="$user $path$(parse_prompt) $path>$pathcheck>$nc "
-
-	# TWOLINE
-	#┌── user╱host ──┤~│
-	#└─┤
-	PS1="$nc$prompt┌──$user$prompt──┤$(parse_prompt)$prompt│\n$prompt└─┤$nc"
-
-	# ONELINE
-	# user╱host ─┤~│ 
-	#PS1="$user$prompt─┤$(parse_prompt)$prompt│ $nc"
+	case "$PROMPT_STYLE" in
+	twoline)
+		# TWOLINE
+		#┌── user╱host ──┤~│
+		#└─┤
+		PS1="$nc$prompt┌──$user$prompt──┤$(parse_prompt)$prompt│\n$prompt└─┤$nc"
+		;;
+	oneline)
+		# ONELINE
+		# user╱host ─┤~│ 
+		PS1="$user$prompt─┤$(parse_prompt)$prompt│ $nc"
+		;;
+	simple|*)
+		# SIMPLE Oneline
+		# user╱host ~ >>
+		PS1="$user $path$(parse_prompt) $path>$pathcheck>$nc "
+		;;
+	esac
 }
 PROMPT_COMMAND="set_prompt; $PROMPT_COMMAND"
