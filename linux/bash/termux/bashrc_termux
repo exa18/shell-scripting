@@ -27,7 +27,7 @@ alias r='pkg uninstall -y'
 alias u='pkg update -y'
 alias U='pkg update -y && pkg upgrade -y && pkg autoclean -y && apt autoremove -y'
 alias e='ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F1 | awk "/\*$/{print}" | sed "s/.$//"); [[ $(wc -w <<< "${arr[@]}") -gt 0 ]] && for v in "${arr[@]}"; do head -c 8 $v | grep -E "^#!" >/dev/null && echo $v; done; else ./$*; fi; };ex'
-alias kc='[ -e ~/kc.sh ] && ~/kc.sh || echo "KC.sh not found"'
+[[ -e ~/kc.sh ]] && alias kc='shift; ~/kc.sh $@'
 [[ -n $(command -v nvim) ]] && alias vi='nvim'
 [[ -n $(command -v micro) ]] && alias mi='micro'
 #
