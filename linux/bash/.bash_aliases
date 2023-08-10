@@ -22,7 +22,7 @@ else
 	alias ll='ls -alFh'
 fi
 alias ip='ip -c'
-alias dff='df -h | grep -P "(^File|\/sd)" --color=never'
+alias dff='df -h | grep -P "^(File|\/dev\/)" --color=never'
 alias dus='du -h --max-depth=1 --exclude="lost+found"'
 alias cp='rsync -rav --progress'
 alias hist='cat ~/.bash_history | grep -E'
