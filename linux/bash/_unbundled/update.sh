@@ -68,5 +68,8 @@ for f in /etc/apt/apt.conf.d/*apt-esm-hook.con*;do
 	[[ -e $f ]] && ${s}mv -f $f ${f%/*}/off
 done
 
+# Check Nvidia if updated then need restart
+[[ -n $(command -v nvidia-smi) ]] && [[ $(nvidia-smi | grep -io failed | wc -m) -gt 0 ]] && echo "NVIDIA updated: NEED RESTART"
+
 echo -e "\n... DONE."
 
