@@ -104,17 +104,17 @@ set_prompt(){
 		# TWOLINE
 		#┌── user╱host ──┤~│
 		#└─┤
-		PS1="$nc$prompt┌──$user$prompt──┤$(parse_prompt)$prompt│\n$prompt└─┤$nc"
+		PS1="\r$nc$prompt┌──$user$prompt──┤$(parse_prompt)$prompt│\n$prompt└─┤$nc"
 		;;
 	oneline)
 		# ONELINE
 		# user╱host ─┤~│ 
-		PS1="$user$prompt─┤$(parse_prompt)$prompt│ $nc"
+		PS1="\r$nc$user$prompt─┤$(parse_prompt)$prompt│ $nc"
 		;;
 	simple|*)
 		# SIMPLE Oneline
 		# user╱host ~ >>
-		PS1="$user $path$(parse_prompt) $path>$pathcheck>$nc "
+		PS1="\r$nc$user $path$(parse_prompt) $path>$pathcheck>$nc "
 		;;
 	esac
 }
