@@ -34,6 +34,5 @@ alias e='ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F1 | awk "/\*$/{pr
 #	Prompt
 #
 nc='\[\e[0m\]'
-PS1=""; [ "$UID" -eq "0" ] && PS1="\[\e[1;91m\]@$nc"
+PS1="\r$nc"; [ "$UID" -eq "0" ] && PS1="$PS1\[\e[1;91m\]@$nc"
 PS1="$PS1 \[\e[1;36m\]\w >\[\e[34m\]>$nc "
-
