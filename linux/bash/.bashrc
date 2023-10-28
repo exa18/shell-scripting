@@ -78,18 +78,17 @@ if [[ $UID -eq 0 ]]; then
 	pathcheck='\[\e[1;91m\]'
 fi
 
+parse_forhome(){ [[ "${a:0:${#HOME}}" == "${HOME}" ]] && a="${a/${HOME}/\~}"; r="${a##*/}"; }
 parse_prompt(){
 	psgit=
 	[[ ! $UID -eq 0 ]] && [[ -n $(command -v git) ]] && psgit="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
 	d="$(pwd -P)"
 	if [[ -n "$psgit" ]]; then
 		g="$(git rev-parse --show-toplevel)"
-		a="${g/${HOME}/\~}"
-		r="${a##*/}"
+		a="${g}"; parse_forhome
 		psprompt="$prompt$psgit $nc$path${a%%${r}}$pathcheck$r$nc$path${d#${g}}"
 	else
-		[[ $UID -eq 0 ]] && a="${d}" || a="${d/${HOME}/\~}"
-		r="${a##*/}"
+		a="${d}"; parse_forhome
 		psprompt="$path${a%%${r}}$nc$pathcheck$r"
 	fi
 	printf "$nc$psprompt$nc"
