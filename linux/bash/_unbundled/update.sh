@@ -9,7 +9,16 @@ getkeptback() {
 #
 s='sudo '
 #
-${s}ls >/dev/null
+#${s}ls >/dev/null
+#
+# ESM Apps related to Ubuntu Pro -> remove nag durring update
+#
+	pro="ubuntu-advantage"
+for f in /etc/apt/apt.conf.d/*apt-esm-hook.con*;do
+	[[ ! -d ${f%/*}/off ]] && ${s}mkdir ${f%/*}/off
+	[[ -e $f ]] && ${s}mv -f $f ${f%/*}/off
+	${s}systemctl is-enabled ${pro} >/dev/null && ${s}systemctl disable ${pro}
+done
 #
 # UPGRADING section
 #
@@ -61,12 +70,6 @@ if [[ -n "${pkg[0]}" ]];then
 fi
     echo -e "\n... Clean and autoremove"
     ${s}apt autoremove -y
-
-# ESM Apps related to Ubuntu Pro -> remove nag durring update
-for f in /etc/apt/apt.conf.d/*apt-esm-hook.con*;do
-	[[ ! -d ${f%/*}/off ]] && ${s}mkdir ${f%/*}/off
-	[[ -e $f ]] && ${s}mv -f $f ${f%/*}/off
-done
 
 # Check Nvidia if updated then need restart
 [[ -n $(command -v nvidia-smi) ]] && [[ $(nvidia-smi | grep -io failed | wc -m) -gt 0 ]] && echo "NVIDIA updated: NEED RESTART"

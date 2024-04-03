@@ -14,8 +14,8 @@ if [[ $lc -gt 1 ]]; then
 		if [[ ${i} != "${USER}" ]]; then
 			d="/home/${i}/"
 			if [[ -d $d ]]; then
-				sudo cp ~/$rc $d
-				sudo cp ~/$al $d
+				sudo cp $HOME/$rc $d
+				sudo cp $HOME/$al $d
 				sudo chown -f $i:$i $d$rc
 				sudo chown -f $i:$i $d$al
 				sudo chmod g=rw $d$rc
@@ -25,6 +25,6 @@ if [[ $lc -gt 1 ]]; then
 	done
 fi
 
-	sudo cp ~/$rc /root/
-	sudo cp ~/$al /root/
+	sudo cp $HOME/$rc /root/
+	sudo cp $HOME/$al /root/
 
