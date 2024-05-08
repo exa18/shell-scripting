@@ -5,7 +5,8 @@
 s='sudo '
 ${s}ls >/dev/null
 #
-gigs=2
+# Check total ram and add 2GB as swapfile size
+gigs=$(echo "$(cat /proc/meminfo | grep MemTotal | awk '{print $2}') / 1000 / 1024 +2"|bc)
 if [[ -n "${1}" ]] && [[ $1 -gt 0 ]];then
 	gigs=$1
 fi

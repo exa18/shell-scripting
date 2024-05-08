@@ -87,7 +87,7 @@ Contains full and prettified some scripts of above aliases.
 - tm
 - u : update
 - swap.sh : not aliased script for creating and/or changing /swapfile
-  > argument as number to change amount in gigs (default: 2) \
+  > argument as number to change amount in gigs (default: total ram +2) \
   > if "--" then just remove and disable swap
 
 ### Convert and problem with cache
