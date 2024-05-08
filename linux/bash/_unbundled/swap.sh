@@ -10,7 +10,7 @@ if [[ -n "${1}" ]] && [[ $1 -gt 0 ]];then
 	gigs=$1
 fi
 # If swap ON then OFF
-sw=$(swapon --show | grep "/swapfile" | wc -l)
+sw=$(${s}swapon --show | grep "/swapfile" | wc -l)
 [[ $sw -gt 0 ]] && ${s}swapoff /swapfile
 #
 if [[ "${1}" == "--" ]];then
