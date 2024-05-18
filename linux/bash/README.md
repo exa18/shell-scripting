@@ -94,7 +94,8 @@ Contains full and prettified some scripts of above aliases.
 Install: **xfce4-genmon-plugin**
 
 Source: [Xtonousou/xfce4-genmon-scripts](https://github.com/xtonousou/xfce4-genmon-scripts/blob/master/memory-panel.sh)
-- memory-panel.sh : show ram used / total and icon if valid file
+- memory-panel.sh : show ram used / total and icon if valid file which could be added as arg
+  and also show running tasks afer click over if installed **xfce4-taskmanager** or if not and xfce4-terminal and **htop**
 
 ## Configs / dot folder
 Just copy to home

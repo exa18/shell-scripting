@@ -7,49 +7,79 @@
 # Optional icon to display before the text
 # Insert the absolute path of the icon
 # Recommended size is 24x24 px
-readonly ICON="/usr/share/icons/Tela-dark/16/actions/view-statistics.svg"
+readonly ICON="${1}"
+
+# Some settings
+readonly INFO_COLOR="#0088f0"
+readonly INFO_EXTRA=
+
+# Read RAM
+readonly RAM=$(free -b)
+# outputs
+#               total        used        free      shared  buff/cache   available
+#Mem:     33618276352  4022575104 23018414080    42000384  7077269504 29595701248
+#Swap:    36507217920           0 36507217920
+#
+# get lines Mem and Swap
+readonly RAM_MEM=$(printf "$RAM" | awk '/^[Mm]em/')
+readonly RAM_SWP=$(printf "$RAM" | awk '/^[Ss]wap/')
 
 # Calculate RAM values
-readonly TOTAL=$(free -b | awk '/^[Mm]em/{$2 = $2 / 1073741824; printf "%.2f", $2}')
-readonly USED=$(free -b | awk '/^[Mm]em/{$3 = $3 / 1073741824; printf "%.2f", $3}')
-readonly FREE=$(free -b | awk '/^[Mm]em/{$4 = $4 / 1073741824; printf "%.2f", $4}')
-readonly SHARED=$(free -b | awk '/^[Mm]em/{$5 = $5 / 1073741824; printf "%.2f", $5}')
-readonly CACHED=$(free -b | awk '/^[Mm]em/{$6 = $6 / 1073741824; printf "%.2f", $6}')
-readonly AVAILABLE=$(free -b | awk '/^[Mm]em/{$7 = $7 / 1073741824; printf "%.2f", $7}')
+readonly GIGS=1073741824	# 1024*1024*1024
+
+# round Total to integer
+readonly TOTAL=$(printf "$RAM_MEM" | awk '{$2 = $2 / 1048576/1000; printf "%.0f", $2}')
+readonly USED=$(printf "$RAM_MEM" | awk -v g=$GIGS '{$3 = $3 / g; printf "%.2f", $3}')
+readonly FREE=$(printf "$RAM_MEM"  | awk -v g=$GIGS '{$4 = $4 / g; printf "%.2f", $4}')
+readonly SHARED=$(printf "$RAM_MEM" | awk -v g=$GIGS '{$5 = $5 / g; printf "%.2f", $5}')
+readonly CACHED=$(printf "$RAM_MEM" | awk -v g=$GIGS '{$6 = $6 / g; printf "%.2f", $6}')
+readonly AVAILABLE=$(printf "$RAM_MEM" | awk -v g=$GIGS '{$7 = $7 / g; printf "%.2f", $7}')
 
 # Swap Values
-readonly SWP_TOTAL=$(free -b | awk '/^[Ss]wap/{$2 = $2 / 1073741824; printf "%.2f", $2}')
-readonly SWP_USED=$(free -b | awk '/^[Ss]wap/{$3 = $3 / 1073741824; printf "%.2f", $3}')
-readonly SWP_FREE=$(free -b | awk '/^[Ss]wap/{$4 = $4 / 1073741824; printf "%.2f", $4}')
+if [[ -n $(printf "$RAM_SWP") ]]; then
+readonly SWP_TOTAL=$(printf "$RAM_SWP" | awk -v g=$GIGS '{$2 = $2 / g; printf "%.2f", $2}')
+readonly SWP_USED=$(printf "$RAM_SWP" | awk -v g=$GIGS '{$3 = $3 / g; printf "%.2f", $3}')
+readonly SWP_FREE=$(printf "$RAM_SWP" | awk -v g=$GIGS '{$4 = $4 / g; printf "%.2f", $4}')
+fi
 
 # Panel
-if [[ $(file -b "${ICON}") =~ PNG|SVG ]]; then
-  INFO="<img>${ICON}</img>"
-  if hash xfce4-taskmanager &> /dev/null; then
-    INFO+="<click>xfce4-taskmanager</click>"
-  fi
-  INFO+="<txt>"
-else
-  INFO="<txt>"
+if hash xfce4-taskmanager &> /dev/null; then
+	INFO_TASK="xfce4-taskmanager"
+elif hash xfce4-terminal &> /dev/null; then
+	if hash htop &> /dev/null; then
+		INFO_TASK="xfce4-terminal -e htop"
+	fi
 fi
-INFO+="<span foreground='#0088f0'>${USED} GB"
-#INFO+="／"
-#INFO+="${TOTAL} GB"
-INFO+="</span></txt>"
+
+if [[ $(file -b "${ICON}") =~ PNG|SVG ]]; then
+	INFO="<img>${ICON}</img>"
+	[[ $INFO_TASK ]] && INFO+="<click>${INFO_TASK}</click>"
+else
+	[[ $INFO_TASK ]] && INFO+="<txtclick>${INFO_TASK}</txtclick>"
+fi
+INFO+="<txt>"
+[[ $INFO_COLOR ]] && INFO+="<span foreground='${INFO_COLOR}'>"
+INFO+="${USED}"
+[[ $INFO_EXTRA ]] && INFO+="／${TOTAL}"
+INFO+=" GB"
+[[ $INFO_COLOR ]] && INFO+="</span>"
+INFO+="</txt>"
 
 # Tooltip
 MORE_INFO="<tool>"
 MORE_INFO+="┌ RAM\n"
-MORE_INFO+="├─ Used\t\t${USED} GB\n"
+MORE_INFO+="├─ Used\t\t${USED} GB\n" 
 MORE_INFO+="├─ Free\t\t${FREE} GB\n"
 MORE_INFO+="├─ Shared\t${SHARED} GB\n"
 MORE_INFO+="├─ Cache\t\t${CACHED} GB\n"
 MORE_INFO+="└─ Total\t\t${TOTAL} GB"
+if [[ -n $(printf "$RAM_SWP") ]]; then
 MORE_INFO+="\n\n"
 MORE_INFO+="┌ SWAP\n"
 MORE_INFO+="├─ Used\t\t${SWP_USED} GB\n"
 MORE_INFO+="├─ Free\t\t${SWP_FREE} GB\n"
 MORE_INFO+="└─ Total\t\t${SWP_TOTAL} GB"
+fi
 MORE_INFO+="</tool>"
 
 # Panel Print
