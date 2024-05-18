@@ -1,0 +1,17 @@
+[G0]
+timername=y
+time=60
+timercommand=
+timerinfo=1m 0s
+is_countdown=true
+is_recur=false
+autostart=false
+
+[others]
+nowin_if_alarm=false
+use_global_command=false
+global_command=
+repeat_alarm=false
+repetitions=1
+repeat_interval=10
+
