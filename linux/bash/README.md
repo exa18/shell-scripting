@@ -79,7 +79,7 @@ Updates all profiles with this set. Copies files with dot thru all users include
 - na :: nano
 - mi :: micro
 
-### Unbundled
+## Unbundled
 Contains full and prettified some scripts of above aliases.
 - e
 - findusb : findusbports
@@ -89,6 +89,19 @@ Contains full and prettified some scripts of above aliases.
 - swap.sh : not aliased script for creating and/or changing /swapfile
   > argument as number to change amount in gigs (default: total ram +2) \
   > if "--" then just remove and disable swap
+
+## XFCE4 Genmon
+Install: **xfce4-genmon-plugin**
+
+Source: [Xtonousou/xfce4-genmon-scripts](https://github.com/xtonousou/xfce4-genmon-scripts/blob/master/memory-panel.sh)
+- memory-panel.sh : show ram used / total and icon if valid file
+
+## Configs / dot folder
+Just copy to home
+- .config -> xfce4 : panel, terminal, keyboard shortcuts
+- .config -> thunar
+- .gnupg
+- .moc : default config template for MOCP
 
 ### Convert and problem with cache
 > Source from [HERE](https://stackoverflow.com/questions/31407010/cache-resources-exhausted-imagemagick#62512452)
