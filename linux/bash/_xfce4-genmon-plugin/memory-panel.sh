@@ -26,6 +26,7 @@ readonly RAM_SWP=$(printf "$RAM" | awk '/^[Ss]wap/')
 
 # Calculate RAM values
 readonly GIGS=1073741824	# 1024*1024*1024
+readonly UNIT="GB"
 
 # round Total to integer
 readonly TOTAL=$(printf "$RAM_MEM" | awk '{$2 = $2 / 1048576/1000; printf "%.0f", $2}')
@@ -61,24 +62,27 @@ INFO+="<txt>"
 [[ $INFO_COLOR ]] && INFO+="<span foreground='${INFO_COLOR}'>"
 INFO+="${USED}"
 [[ $INFO_EXTRA ]] && INFO+="／${TOTAL}"
-INFO+=" GB"
+INFO+=" ${UNIT}"
 [[ $INFO_COLOR ]] && INFO+="</span>"
 INFO+="</txt>"
 
 # Tooltip
 MORE_INFO="<tool>"
-MORE_INFO+="┌ RAM\n"
-MORE_INFO+="├─ Used\t\t${USED} GB\n" 
-MORE_INFO+="├─ Free\t\t${FREE} GB\n"
-MORE_INFO+="├─ Shared\t${SHARED} GB\n"
-MORE_INFO+="├─ Cache\t\t${CACHED} GB\n"
-MORE_INFO+="└─ Total\t\t${TOTAL} GB"
-if [[ -n $(printf "$RAM_SWP") ]]; then
+MORE_INFO+="┌ RAM\t\t${UNIT}\n"
+MORE_INFO+="├─ Used\t\t${USED}\n" 
+MORE_INFO+="├─ Free\t\t${FREE}\n"
+MORE_INFO+="├─ Shared\t${SHARED}\n"
+MORE_INFO+="├─ Cache\t\t${CACHED}\n"
+MORE_INFO+="└─ Total\t\t${TOTAL}"
 MORE_INFO+="\n\n"
-MORE_INFO+="┌ SWAP\n"
-MORE_INFO+="├─ Used\t\t${SWP_USED} GB\n"
-MORE_INFO+="├─ Free\t\t${SWP_FREE} GB\n"
-MORE_INFO+="└─ Total\t\t${SWP_TOTAL} GB"
+MORE_INFO+="┌ SWAP"
+if [[ -n $(printf "$RAM_SWP") ]]; then
+MORE_INFO+="\t\t${UNIT}\n"
+MORE_INFO+="├─ Used\t\t${SWP_USED}\n"
+MORE_INFO+="├─ Free\t\t${SWP_FREE}\n"
+MORE_INFO+="└─ Total\t\t${SWP_TOTAL}"
+else
+MORE_INFO+="\n└─ disabled"
 fi
 MORE_INFO+="</tool>"
 
