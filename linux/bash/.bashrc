@@ -65,18 +65,23 @@ exec {BASH_XTRACEFD}>/dev/null
 #
 #   ------------ PROMPT
 #
+#show_host='╱\h'	# uncomment to show HOST
 nc='\[\e[0m\]'
-#show_host='╱\h'
+# color: blue
 prompt='\[\e[1;34m\]'
 info='\[\e[30;44m\]'
 path='\[\e[0;96m\]'
 pathcheck='\[\e[1;96m\]'
+user="\u"
 if [[ $UID -eq 0 ]]; then
+	# color: red
 	prompt='\[\e[0;31m\]'
 	info='\[\e[30;41m\]'
 	path='\[\e[0;91m\]'
 	pathcheck='\[\e[1;91m\]'
+	user="@"
 fi
+user="$nc$info $user$show_host $nc"
 
 parse_forhome(){ [[ "${a:0:${#HOME}}" == "${HOME}" ]] && a="${a/${HOME}/\~}"; r="${a##*/}"; }
 parse_prompt(){
@@ -93,10 +98,6 @@ parse_prompt(){
 	fi
 	printf "$nc$psprompt$nc"
 }
-
-# Create User/Host part which also detect if root
-[[ $UID -eq 0 ]] && user="$nc$info @$show_host $nc" || user="$nc$info \u$show_host $nc"
-
 set_prompt(){
 	case "$PROMPT_STYLE" in
 	twoline)
@@ -108,12 +109,12 @@ set_prompt(){
 	oneline)
 		# ONELINE
 		# user╱host ─┤~│ 
-		PS1="\r$nc$user$prompt─┤$(parse_prompt)$prompt│ $nc"
+		PS1="\r$nc$user$prompt─┤$(parse_prompt)$prompt│$nc"
 		;;
 	simple|*)
 		# SIMPLE Oneline
 		# user╱host ~ >>
-		PS1="\r$nc$user $path$(parse_prompt) $path>$pathcheck>$nc "
+		PS1="\r$nc$user $path$(parse_prompt) $path>$pathcheck>$nc"
 		;;
 	esac
 }
