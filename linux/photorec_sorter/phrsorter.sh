@@ -4,7 +4,8 @@ SH_SPIN="/-\|"
 x=1
 #
 # RAW extension
-raw=.cr2
+raw=.cr2	# default: Cannon
+[[ -n $1 ]] && raw=".${1,,}"
 #
 logg=./log_$(date '+%Y%m%d_%H%M')
 #
@@ -22,7 +23,7 @@ find . -type f -name "f*${raw}" | while read fff;do
 	#
 	folder=${faa::8}
 	name=${faa:8:6}
-	mkdir -p $folder
+	mkdir -p $folder 2>/dev/null
 	#
 	# Check it
 	check=1
@@ -47,8 +48,15 @@ find . -type f -name "f*${raw}" | while read fff;do
 
 	fullname=${folder}_${name}
 	if [[ $check -eq 0 ]];then
-		cp $fff "./${folder}/${fullname}${raw}" 2>/dev/null || echo " / MISSING: RAW / $ggg ... $fullname" >> $logg
-		cp $ggg "./${folder}/${fullname}.jpg" 2>/dev/null || echo " / MISSING: JPG / $fff ... $fullname" >> $logg
+		cp $fff "./${folder}/${fullname}${raw}" 2>/dev/null || echo "/ MISSING: RAW / $ggg ... $fullname" >> $logg
+		cp $ggg "./${folder}/${fullname}.jpg" 2>/dev/null || echo "/ MISSING: JPG / $fff ... $fullname" >> $logg
+		if [[ ! -e $ggg && -n $(command -v dcraw) ]];then
+			if [[ $(dcraw -i $fff 2>/dev/null) ]];then
+				dcraw -c -w $fff | cjpeg -quality 80 > "./${folder}/${fullname}.jpg" 2>/dev/null && echo "/// $raw -> jpg converted" || echo "/// $raw conversion error" >> $logg
+			else
+				echo "/// $raw NOT supported" >> $logg
+			fi
+		fi
 	fi
 
 done

@@ -38,7 +38,11 @@ This script connect raw & jpg restored with **PhotoRec** to same folder and file
 
 Contains path to source raw/jpg file and its new name to check what was not connected.
 
+In this case to use auto make jpg preview from raw just install **dcraw**, note this action appear inside log also.
+
 ### RAW extensions (common)
+
+Default: cr2. Argmunet pass other raw.
 
 ```
 Kodak : dcr, k25, kdc
