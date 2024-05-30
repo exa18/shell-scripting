@@ -1,0 +1,14 @@
+# Debian apt(8) completion
+# show
+
+_aptshow(){
+	local cur prev words cword
+	_init_completion -n = || return
+
+	COMPREPLY=( $( apt-cache --no-generate pkgnames "$cur" 2> /dev/null ) )
+
+} &&
+complete -F _aptshow S
+
+
+# ex: filetype=sh

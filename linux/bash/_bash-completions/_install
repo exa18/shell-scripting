@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+s='sudo '
+${s}ls >/dev/null
+#
+path='/usr/share/bash-completion/completions/'
+if [[ -e ${path}apt ]];then
+	find ./ -type f -not -name "_*" -print | sed "s/\.\///" |
+		while read file;do
+			${s}cp ./$file $path
+			${s}chown root:root $path$file
+		done
+fi

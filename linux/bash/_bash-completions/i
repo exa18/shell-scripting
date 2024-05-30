@@ -1,0 +1,17 @@
+# Debian apt(8) completion
+# install / reinstall
+
+_aptinstal(){
+	local cur prev words cword
+	_init_completion -n = || return
+
+	if [[ "$cur" == .* || "$cur" == /* || "$cur" == ~* ]]; then
+	    _filedir "deb"
+	else
+	    COMPREPLY=( $( apt-cache --no-generate pkgnames "$cur" 2> /dev/null ) )
+	fi
+
+} &&
+complete -F _aptinstal i I
+
+# ex: filetype=sh

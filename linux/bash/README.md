@@ -17,6 +17,12 @@ In case no need GIT info just comment first line which contain it in parse_promp
 Updates all profiles with this set. Copies files with dot thru all users includes root.
 
 ## Aliases
+
+### Bash completion
+
+Execute **_install** to copy completions at **/usr/share/bash-completion/completions/**. This path could be found inside **/etc/bash_completion**.
+- APT :: ```i, I, S, r```
+
 #### Variables
 
 - SH_MSX :: sets working directory for **m**

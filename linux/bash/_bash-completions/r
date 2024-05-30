@@ -1,0 +1,17 @@
+# Debian apt(8) completion
+# remove
+
+_aptremove(){
+	local cur prev words cword
+	_init_completion -n = || return
+
+	if [[ -f /etc/debian_version ]]; then
+	    # Debian system
+	    COMPREPLY=( $( _xfunc dpkg _comp_dpkg_installed_packages $cur ) )
+		# no rpm support
+	fi
+
+} &&
+complete -F _aptremove r
+
+# ex: filetype=sh
