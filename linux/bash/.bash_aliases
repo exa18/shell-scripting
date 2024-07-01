@@ -1,7 +1,7 @@
 #
 #	VARIABLES (settings)
 #
-export SH_MSX="/home/$USER/Music"
+export SH_MSX="$HOME/Music"
 export SH_JPGRE="40"
 export SH_SPIN="/-\|"
 export SH_MSXPLAYER="mocp"	#tizonia|mocp
@@ -25,7 +25,7 @@ alias ip='ip -c'
 alias dff='df -h | grep -P "^(File|\/dev\/)" --color=never'
 alias dus='du -h --max-depth=1 --exclude="lost+found"'
 alias cp='rsync -rav --progress'
-alias hist='cat ~/.bash_history | grep -E'
+alias hist='cat $HOME/.bash_history | grep -E'
 #
 #	apt & update
 #
@@ -73,7 +73,7 @@ fn_msxserver
 alias m='fn_msx(){ fn_msxserver; [[ $# -eq 0 ]] && mocp --info | grep -E --color=never "^(State|File|Title|TotalTime|TimeLeft)" && echo "*";if [[ -z "$1" ]] || [[ "$1" = "--" ]];then [[ -d $SH_MSX/$2 ]] && ls -1 "$SH_MSX/$2"; else [[ -d $SH_MSX/$1 ]] && mocp -c && mocp --append $SH_MSX/$1 && mocp --play; fi; };fn_msx'
 alias ms='mocp --toggle-pause'
 alias mS='[[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play || mocp --stop'
-alias mx='fn_msxserver;[[ -e ~/.moc/playlist.m3u ]] && [[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play;mocp'
+alias mx='fn_msxserver;[[ -e $HOME/.moc/playlist.m3u ]] && [[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play;mocp'
 alias mn='mocp --next'
 alias mp='mocp --previous'
 alias mX='mocp -x'
@@ -86,7 +86,7 @@ esac
 [[ -n $(command -v shellcheck) ]] && alias sc='shellcheck -S warning'
 alias e='ex(){ if [[ -z "$1" ]];then readarray -t arr <<< $(ls -F1 | awk "/\*$/{print}" | sed "s/.$//"); [[ $(wc -w <<< "${arr[@]}") -gt 0 ]] && for v in "${arr[@]}"; do head -c 8 $v | grep -E "^#!" >/dev/null && echo $v; done; else if [[ "$1" = "sudo" ]];then s="$1 ";shift;fi; $s./$*; fi; };ex'
 alias tm='tmdd(){ local arr=("${1::4}" "${1:4:2}" "${1:6:2}" "${1:8:2}" "${1:10:2}"); echo "${arr[@]}";}; tme(){ p=($(tmdd "${1}")); readarray -t list <<< "$(ls -1)"; if [[ ${#list[@]} -gt 0 ]]; then for f in "${list[@]}"; do pf=($(tmdd "$(date '"'"'+%Y%m%d%H%M'"'"' -r ${f})")); d=; x=0; for v in "${pf[@]}"; do [[ ${#p[$x]} -gt 0 ]] && a=${p[$x]} || a=${v}; d=${d}${a}; x=$((x+1)); done; touch -a -m -t $d $f; done; fi;};tme'
-[[ -e ~/kc.sh ]] && alias kc='shift; ~/kc.sh $@'
+[[ -e $HOME/kc.sh ]] && alias kc='shift; $HOME/kc.sh $@'
 alias psk='sudo grep psk= /etc/NetworkManager/system-connections/* | awk -F/ '"'"'{print $NF}'"'"' '
 alias findusb='for sysdevpath in $(find /sys/bus/usb/devices/usb*/ -name dev); do ( syspath="${sysdevpath%/dev}"; devname="$(udevadm info -q name -p $syspath)"; [[ "$devname" == "bus/"* ]] && exit || eval "$(udevadm info -q property --export -p $syspath)"; [[ -z "$ID_SERIAL" ]] && exit || echo "/dev/$devname - $ID_SERIAL"; ); done'
 #
