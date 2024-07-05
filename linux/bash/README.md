@@ -92,9 +92,12 @@ Contains full and prettified some scripts of above aliases.
 - jpgre
 - tm
 - u : update
+- update_ubuntu : for ubuntu full update
+- update_ubuntu_non : sme but without update kept back and nvidia
 - swap.sh : not aliased script for creating and/or changing /swapfile
   > argument as number to change amount in gigs (default: total ram +2) \
   > if "--" then just remove and disable swap
+- nvidia_hold : mark all nvidia dependencies as hold to prevent updates
 
 ## XFCE4 Genmon
 Install: **xfce4-genmon-plugin**
