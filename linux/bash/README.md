@@ -46,7 +46,8 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 - s :: list repos
 - S :: show given package
 - r :: remove package with yes agree on
-- u :: execute full update (but no distro), regular update, checking kept back with safe update, safe nvidia update, clean dpkg and snaps
+- U :: just update info from sources
+- u :: execute full update (but no distro and holded), regular update with simulate update to check if needed timeshift snapshot and update then cleaning
 
 ##### GFX
 - psd2jpg :: convert all .psd to .jpg in current folder
@@ -94,10 +95,13 @@ Contains full and prettified some scripts of above aliases.
 - u : update
 - update_ubuntu : for ubuntu full update
 - update_ubuntu_non : sme but without update kept back and nvidia
-- swap.sh : not aliased script for creating and/or changing /swapfile
+- swap.sh \* : for creating and/or changing /swapfile
   > argument as number to change amount in gigs (default: total ram +2) \
   > if "--" then just remove and disable swap
-- nvidia_hold : mark all nvidia dependencies as hold to prevent updates
+- nvidia_hold.sh \* : mark all nvidia dependencies as hold to prevent updates
+
+  \* not aliased
+
 
 ## XFCE4 Genmon
 Install: **xfce4-genmon-plugin**
