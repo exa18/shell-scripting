@@ -57,43 +57,43 @@ echo "Keepass: ${kdbx}"
 #
 rclone lsl "${kbrem}" --log-file "${log}" > "${log}"
 error=$(cat "${log}" | awk '/ERROR.*not found/{print}')
-rem=$([ -z "${error}" ] && cat "${log}" | awk '{print $2 $3}' | cut -f1 -d"." | cut -f1-2 -d":" | tr -d - | tr -d :)
-loc=$([ -e "${kbloc}" ] && ls -lah --time-style=full-iso "${kbloc}" | awk '{print $6 $7}' | cut -f1 -d"." | cut -f1-2 -d":" | tr -d - | tr -d :)
+rem=$([ -z "${error}" ] && cat "${log}" | grep "${kbfile}" | awk '{print $2 $3}' | cut -f1 -d"." | cut -f1-2 -d":" | tr -d "-" | tr -d ":")
+loc=$([ -e "${kbloc}" ] && ls -lah --time-style=full-iso "${kbloc}" | awk '{print $6 $7}' | cut -f1 -d"." | cut -f1-2 -d":" | tr -d "-" | tr -d ":")
 
 rclone check "${kbloc}" "${cloud}" --size-only --one-way --no-traverse --log-file "${log}"
-dif=$(printf '%d' "$(cat ${log} | awk '/NOTICE.*differences/{print}' | grep -Fo '\:\s([0-9]+)' | awk '{print $NF}')" 2>/dev/null)
+tsys="$(date +%Y%m%d%H%M)"
+logdif=$(cat ${log} | awk '/NOTICE.*differences/{print}')
+dif=$(printf '%d' "$(echo "${logdif}" | grep -Fo '\:\s([0-9]+)' | awk '{print $NF}')" 2>/dev/null)
+# get remote time and calc timezone
+trem=$(echo "${logdif}" | awk -F: '{print $1 $2}'|tr -d "/"|tr -d " ")
+tz=$(echo "((${tsys} - ${trem}) / 100) * 100"|bc)
 rm "${log}"
 
-[ -z "${rem}" ] && rem=0
+[ -z "${rem}" ] && rem=0 || rem=$((rem + tz))
 [ -z "${loc}" ] && loc=0
-[ "${rem}" -ne "${loc}" ] && dif=$(( dif +1 ))
-[ -n "${verbose}" ] && echo "Remote: /${rem}/  Local: /${loc}/  Diff: /${dif}/"
-#echo "Backup name: ${here}${bak}/${host}/${USER}/${kdbx}.kdbx"
+[ -n "${verbose}" ] && echo "Remote: /${rem}/  Local: /${loc}/  Diff: /${dif}/  TZ: /$((tz / 100))/"
 
 if [ "${dif}" -gt "0" ]; then
 
 	if [ "${rem}" -gt "${loc}" ]; then
 		echo "Remote is new <- PULL"
 		stamp=${loc}
-		find "${here}${bak}"/* -mtime +30 -exec rm {} \;  >/dev/null
-		[ "${loc}" -gt "0" ] && rclone copyto "${kbloc}" "${here}${bak}/${kbfile}_${stamp}" >/dev/null
-		rclone copy "${kbrem}" "${here}" >/dev/null
+		find "${here}${bak}"/* -mtime +30 -exec rm {} \;  >/dev/null 2>&1
+		[ "${loc}" -gt "0" ] && rclone copyto "${kbloc}" "${here}${bak}/${kbfile}_${stamp}" >/dev/null 2>&1
+		rclone copy "${kbrem}" "${here}" >/dev/null 2>&1
 	fi
 
 	if [ "${loc}" -gt "${rem}" ]; then
 		echo "Local is new -> PUSH"
 		stamp=${rem}
-		[ "${rem}" -gt "0" ] && rclone copyto "${kbrem}" "${cloud}${bak}/${host}/${u}/${kbfile}_${stamp}" >/dev/null
-		rclone copy "${kbloc}" "${cloud}" >/dev/null
+		[ "${rem}" -gt "0" ] && rclone copyto "${kbrem}" "${cloud}${bak}/${host}/${u}/${kbfile}_${stamp}" >/dev/null 2>&1
+		rclone copy "${kbloc}" "${cloud}" >/dev/null 2>&1
 	fi
-
-fi
-
-if [ "${rem}" -eq "${loc}" ] || [ "${dif}" -eq "0" ]; then
+else
 	echo "Remote = Local"
-	stamp=${loc}
-	[ "${rem}" -gt "${loc}" ] && echo "*** This is origin ***"
+	[ "${rem}" -eq "${loc}" ] && echo "*** This is origin ***"
 fi
+
 [ -n "${verbose}" ] && echo "Local backup: ${here}${bak}/"
 [ -n "${verbose}" ] && echo "Remote backup: ${cloud}${bak}/${host}/${u}/"
 exit 0
