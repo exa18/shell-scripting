@@ -66,7 +66,7 @@ logdif=$(cat ${log} | awk '/NOTICE.*differences/{print}')
 dif=$(printf '%d' "$(echo "${logdif}" | grep -Fo '\:\s([0-9]+)' | awk '{print $NF}')" 2>/dev/null)
 # get remote time and calc timezone
 trem=$(echo "${logdif}" | awk -F: '{print $1 $2}'|tr -d "/"|tr -d " ")
-tz=$(echo "((${tsys} - ${trem}) / 100) * 100"|bc)
+tz=$(( ((tsys - trem)/100)*100 ))
 rm "${log}"
 
 [ -z "${rem}" ] && rem=0 || rem=$((rem + tz))
