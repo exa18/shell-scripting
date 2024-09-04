@@ -40,7 +40,7 @@ alias u='s="sudo "; ${s}apt update; u=$(apt upgrade -s 2>/dev/null |grep upgrade
 #
 #	video
 #
-[[ -n $(command -v ffmpeg) ]] && alias ffavi='fn_ffa(){ [[ -e "${1}" ]] && ffmpeg -i "${1}" -map 0 -pix_fmt yuv420p -c:v libx264 -crf 21 -c:a libmp3lame -b:a 128k "${1%.*}_h264.mkv";};fn_ffa'
+[[ -n $(command -v ffmpeg) ]] && alias ffavi='fn_ffa(){ [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -map 0 -pix_fmt yuv420p -c:v libx264 -crf 21 -c:a libmp3lame -b:a 128k "./${1%.*}_h264.mkv";};fn_ffa'
 #
 #	gfx
 #
@@ -48,7 +48,7 @@ if [[ -n $(command -v convert) ]];then
 alias psd2jpg='x=1 ; echo -n " "; for i in *.psd ; do echo -ne "\b$(fn_spin)"; convert "$i[0]" -background white -flatten -quality 97 "${i%.*}.jpg" ; done ; echo -ne "\b"'
 alias jpgre='re(){ r="${SH_JPGRE}"; [[ -n "$1" ]] && r="${1}"; readarray -t arr <<< $(ls -1 *.jpg | grep -E -v "*_re*"); x=0; lc=${#arr[@]}; if [[ -n "$lc" ]]; then for i in "${arr[@]}"; do echo -ne "\r$(fn_spin) ${x} / $(( x *100 / lc )) %"; convert "$i" -resize "${r}%" -sharpen 0x1 -quality 95 "${i%.*}_re${r}.jpg"; done; fi ; echo -ne "\r \n"; };re'
 fi
-[[ -n $(command -v pdfseparate) ]] && alias pdf2pdf='fn_pdfs(){ [[ -e "${1}" ]] && pdfseparate "${1}" "${1/.pdf/_%04d.pdf}";};fn_pdfs'
+[[ -n $(command -v pdfseparate) ]] && alias pdf2pdf='fn_pdfs(){ [[ -e "./${1}" ]] && pdfseparate "${1}" "${1/.pdf/_%04d.pdf}";};fn_pdfs'
 [[ -n $(command -v soffice) ]] && alias doc2pdf='fn_soffice(){ v=$(soffice --version | grep -oP "\d\.\d\.\d\.\d" | tr -d ".");[[ $v -ge 5262 ]] && [[ -e "${1}" ]] && soffice --headless --convert-to pdf "${1}" --outdir .;};fn_soffice'
 #
 #	msx
