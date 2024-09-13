@@ -46,7 +46,7 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 - s :: list repos
 - S :: show given package
 - r :: remove package with yes agree on
-- U :: just update info from sources
+- U :: execute dry update
 - u :: execute full update (but no distro and holded), regular update with simulate update to check if needed timeshift snapshot and update then cleaning
 
 ##### GFX
