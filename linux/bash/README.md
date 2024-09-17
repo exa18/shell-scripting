@@ -90,7 +90,7 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 - `e` :: empty will shows all executables scripts invoked SheBang (#!), or execute
 - `tm` :: change access and modification datetime with arg YYYYMMDDhhmm. Changes with only provided part of arg.
 - `kc` :: sync Keepass file local-remote with autochange detection (separate project)
-  > install :: rclone
+  > install :: keepassrc rclone
 `- `psk` :: shows collected wifi passwords
 `- `findusb` :: determine usb port of device
 - `ddw` :: write IMG to (USB) drive, exp. ddw sde raspberry.img

@@ -3,6 +3,7 @@
 
 ## This script is for synchronize keepass database file with set cloud/server.
 And it is compliant with POSIX Shell so it can be executed on Termux.
+  > install :: keepassxc rclone
 
 ---
 
