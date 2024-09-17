@@ -2,6 +2,7 @@
 # PhotoRec Sorter
 
 This script connect raw & jpg restored with **PhotoRec** to same folder and filename passing by its creation/modification date as filename.
+  > install :: testdisk
 
 ---
 
