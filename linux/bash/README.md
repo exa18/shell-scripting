@@ -10,6 +10,8 @@ This is setting for bash. Copy to your HOME.
 Here are choices which you enable in **.bashrc** inside set_prompt().
 In case no need GIT info just comment first line which contain it in parse_prompt().
 
+- `PROMPT_STYLE` :: select prompt: simple, oneline, twoline
+
 ![Bash Prompts preview](bash_prompts.png "Bash Prompts preview")
 
 ### Bashupdate.sh
@@ -25,92 +27,93 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 
 #### Variables
 
-- SH_MSX :: sets working directory for **m**
-- SH_MSXPLAYER :: choose wich player to use **tizonia|mocp**
-- SH_JPGRE :: sets default % of resize for **jpgre**
-- SH_SPIN :: sets spin sequence for progress **jpgre** and **psd2jpg**
+- `SH_MSX` :: sets working directory for **m**
+- `SH_MSXPLAYER` :: choose wich player to use **tizonia|mocp**
+- `SH_JPGRE` :: sets default % of resize for **jpgre**
+- `SH_SPIN` :: sets spin sequence for progress **jpgre** and **psd2jpg**
 
 #### COMMON
-- ll :: same as above but as expanded
-- l :: list entires as columns and with indicator
-- l. :: list hidden (begins with dot)
-- ip :: just add colors
+- `ll` :: same as above but as expanded
+- `l` :: list entires as columns and with indicator
+- `l.` :: list hidden (begins with dot)
+- `ip` :: just add colors
   > install :: net-tools
-- dff :: shows all /dev/sd* usage
-- dus :: shows usage for all directories on actual level
-- cp :: uses rsync for copy
+- `dff` :: shows all /dev/sd* usage
+- `dus` :: shows usage for all directories on actual level
+- `cp` :: uses rsync for copy
   > install :: rsync
-- hist :: use grep phrase on .bash_history
+- `hist` :: use grep phrase on .bash_history
 
 #### APT
-- i :: install package with yes agree on
-- I :: reinstall package
-- s :: list repos
-- S :: show given package
-- r :: remove package with yes agree on
-- U :: execute dry update
-- u :: execute full update (but no distro and holded), regular update with simulate update to check if needed timeshift snapshot and update then cleaning
+- `i` :: install package with yes agree on
+- `I` :: reinstall package
+- `s` :: list repos
+- `S` :: show given package
+- `r` :: remove package with yes agree on
+- `U` :: execute dry update
+- `u` :: execute full update (but no distro and holded), regular update with simulate update to check if needed timeshift snapshot and update then cleaning
 
 ##### GFX
-- psd2jpg :: convert all .psd to .jpg in current folder
-- jpgre :: resize all .jpg which was not scaled to given number of % width/higth // arg with number change % of resize
+- `psd2jpg` :: convert all .psd to .jpg in current folder
+- `jpgre` :: resize all .jpg which was not scaled to given number of % width/higth // arg with number change % of resize
   > install :: imagemagick
-- pdf2pdf :: separate multi page PDF to single pages (numbered 0000, 0001 ...)
+- `pdf2pdf` :: separate multi page PDF to single pages (numbered 0000, 0001 ...)
   > install :: pdfarranger
-- doc2pdf :: convert to PDF any document openable by LibreOffice (version is checked >= 5.2.6.2)
+- `doc2pdf` :: convert to PDF any document openable by LibreOffice (version is checked >= 5.2.6.2)
   > install :: libreoffice
-- pdfnopass :: rewrite encrypted PDF to no password if you know it, args: /file.pdf/ /pass/
+- `pdfnopass` :: rewrite encrypted PDF to no password if you know it, args: /file.pdf/ /pass/
   > install :: ghostscript
+  >> equivalent to :: qpdf --password=PDF-PASSWORD --decrypt input_pdf output_pdf
 
 ##### VIDEO
-- ffavi :: convert any video to H.264/mkv crf/20 and audio mp3/48000Mhz/128k
+- `ffavi` :: convert any video to H.264/mkv crf/20 and audio mp3/48000Mhz/128k
 
 #### MSX
-- m :: play content of folder given as arg // no args list entries // arg '--' list entries of folder given as second arg
+- `m` :: play content of folder given as arg // no args list entries // arg '--' list entries of folder given as second arg
 1. TIZONIA
-- ms :: tizonia audio search
-- ml :: tizonia audio playlist
+- `ms` :: tizonia audio search
+- `ml` :: tizonia audio playlist
   > install :: tizonia
 2. MOCP (in case config set on file **chmod g-r,o-r**)
-- ms :: toggle PAUSE
-- mS :: toggle PLAY/STOP
-- mx :: start mocp server, if stoped and playlist then playit, enter GUI
-- mX :: shutdown mocp server
-- mn/mp :: next/previous track
+- `ms` :: toggle PAUSE
+- `mS` :: toggle PLAY/STOP
+- `mx` :: start mocp server, if stoped and playlist then playit, enter GUI
+- `mX` :: shutdown mocp server
+- `mn`/`mp` :: next/previous track
   > install :: moc
 
 ##### TOOLS
-- sc :: shellcheck on bash with warrnings and errors only
+- `sc` :: shellcheck on bash with warrnings and errors only
   > install :: shellcheck
-- nmap :: with prepend sudo
+- `nmap` :: with prepend sudo
   > install :: nmap
-- e :: empty will shows all executables scripts invoked SheBang (#!), or execute
-- tm :: change access and modification datetime with arg YYYYMMDDhhmm. Changes with only provided part of arg.
-- kc :: sync Keepass file local-remote with autochange detection (separate project)
+- `e` :: empty will shows all executables scripts invoked SheBang (#!), or execute
+- `tm` :: change access and modification datetime with arg YYYYMMDDhhmm. Changes with only provided part of arg.
+- `kc` :: sync Keepass file local-remote with autochange detection (separate project)
   > install :: rclone
-- psk :: shows collected wifi passwords
-- findusb :: determine usb port of device
-- ddw :: write IMG to (USB) drive, exp. ddw sde raspberry.img
-- ddc :: clear (USB) drive, exp. ddc sde
+`- `psk` :: shows collected wifi passwords
+`- `findusb` :: determine usb port of device
+- `ddw` :: write IMG to (USB) drive, exp. ddw sde raspberry.img
+- `ddc` :: clear (USB) drive, exp. ddc sde
 
 #### EDITOR
-- vi :: neovim
-- na :: nano
-- mi :: micro
+- `vi` :: neovim
+- `na` :: nano
+- `mi` :: micro
 
 ## Unbundled
 Contains full and prettified some scripts of above aliases.
-- e
-- findusb : findusbports
-- jpgre
-- tm
-- u : update
-- update_ubuntu : for ubuntu full update
-- update_ubuntu_non : sme but without update kept back and nvidia
-- swap.sh \* : for creating and/or changing /swapfile
+- `e`
+- `findusb` : findusbports
+- `jpgre`
+- `tm`
+- `u` : update
+- `update_ubuntu` : for ubuntu full update
+- `update_ubuntu_non` : sme but without update kept back and nvidia
+- `swap.sh`\* : for creating and/or changing /swapfile
   > argument as number to change amount in gigs (default: total ram +2) \
   > if "--" then just remove and disable swap
-- nvidia_hold.sh \* : mark all nvidia dependencies as hold to prevent updates
+- `nvidia_hold.sh`\* : mark all nvidia dependencies as hold to prevent updates
 
   \* not aliased
 
