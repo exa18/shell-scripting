@@ -21,10 +21,10 @@ else
 	alias l.='ls -dF .*'
 	alias ll='ls -alFh'
 fi
-alias ip='ip -c'
+[[ -n $(command -v netstat) ]] && alias ip='ip -c'
 alias dff='df -h | grep -P "^(File|\/dev\/)" --color=never'
 alias dus='du -h --max-depth=1 --exclude="lost+found"'
-alias cp='rsync -rav --progress'
+[[ -n $(command -v rsync) ]] && alias cp='rsync -rav --progress'
 alias hist='cat $HOME/.bash_history | grep -E'
 #
 #	apt & update
@@ -50,6 +50,7 @@ alias jpgre='re(){ r="${SH_JPGRE}"; [[ -n "$1" ]] && r="${1}"; readarray -t arr 
 fi
 [[ -n $(command -v pdfseparate) ]] && alias pdf2pdf='fn_pdfs(){ [[ -e "./${1}" ]] && pdfseparate "${1}" "${1/.pdf/_%04d.pdf}";};fn_pdfs'
 [[ -n $(command -v soffice) ]] && alias doc2pdf='fn_soffice(){ v=$(soffice --version | grep -oP "\d\.\d\.\d\.\d" | tr -d ".");[[ $v -ge 5262 ]] && [[ -e "${1}" ]] && soffice --headless --convert-to pdf "${1}" --outdir .;};fn_soffice'
+[[ -n $(command -v gs) ]] && alias pdfnopass='fn_pdfnp(){ [[ -e "${1}" ]] && [[ -n "${2}" ]] && gs -dNOPAUSE -dBATCH -q -sDEVICE=pdfwrite -sPDFPassword="${2}" -sOutputFile="${1%.*}_np.pdf" -f "${1}";};fn_pdfnp'
 #
 #	msx
 #
