@@ -35,9 +35,11 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 - l :: list entires as columns and with indicator
 - l. :: list hidden (begins with dot)
 - ip :: just add colors
+  > install :: net-tools
 - dff :: shows all /dev/sd* usage
 - dus :: shows usage for all directories on actual level
 - cp :: uses rsync for copy
+  > install :: rsync
 - hist :: use grep phrase on .bash_history
 
 #### APT
@@ -52,8 +54,13 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 ##### GFX
 - psd2jpg :: convert all .psd to .jpg in current folder
 - jpgre :: resize all .jpg which was not scaled to given number of % width/higth // arg with number change % of resize
+  > install :: imagemagick
 - pdf2pdf :: separate multi page PDF to single pages (numbered 0000, 0001 ...)
+  > install :: pdfarranger
 - doc2pdf :: convert to PDF any document openable by LibreOffice (version is checked >= 5.2.6.2)
+  > install :: libreoffice
+- pdfnopass :: rewrite encrypted PDF to no password if you know it, args: /file.pdf/ /pass/
+  > install :: ghostscript
 
 ##### VIDEO
 - ffavi :: convert any video to H.264/mkv crf/20 and audio mp3/48000Mhz/128k
@@ -63,19 +70,24 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 1. TIZONIA
 - ms :: tizonia audio search
 - ml :: tizonia audio playlist
+  > install :: tizonia
 2. MOCP (in case config set on file **chmod g-r,o-r**)
 - ms :: toggle PAUSE
 - mS :: toggle PLAY/STOP
 - mx :: start mocp server, if stoped and playlist then playit, enter GUI
 - mX :: shutdown mocp server
 - mn/mp :: next/previous track
+  > install :: moc
 
 ##### TOOLS
 - sc :: shellcheck on bash with warrnings and errors only
+  > install :: shellcheck
 - nmap :: with prepend sudo
+  > install :: nmap
 - e :: empty will shows all executables scripts invoked SheBang (#!), or execute
 - tm :: change access and modification datetime with arg YYYYMMDDhhmm. Changes with only provided part of arg.
 - kc :: sync Keepass file local-remote with autochange detection (separate project)
+  > install :: rclone
 - psk :: shows collected wifi passwords
 - findusb :: determine usb port of device
 - ddw :: write IMG to (USB) drive, exp. ddw sde raspberry.img
