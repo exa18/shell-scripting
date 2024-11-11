@@ -8,11 +8,12 @@ This is setting for bash. Copy to your HOME.
 ## Prompt
 
 Here are choices which you enable in **.bashrc** inside set_prompt().
-In case no need GIT info just comment first line which contain it in parse_prompt().
 
 - `PROMPT_STYLE` :: select prompt: simple, oneline, twoline
 
 ![Bash Prompts preview](bash_prompts.png "Bash Prompts preview")
+
+## 
 
 ### Bashupdate.sh
 
@@ -31,6 +32,8 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 - `SH_MSXPLAYER` :: choose wich player to use **tizonia|mocp**
 - `SH_JPGRE` :: sets default % of resize for **jpgre**
 - `SH_SPIN` :: sets spin sequence for progress **jpgre** and **psd2jpg**
+- `SH_IM` :: selects which ImageMagick version, IM7 uses **magick** but IM6 **convert**
+- `TIME_STYLE` :: sets date format used by **ls** and **exa**
 
 #### COMMON
 - `ll` :: same as above but as expanded
@@ -50,7 +53,7 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 - `s` :: list repos
 - `S` :: show given package
 - `r` :: remove package with yes agree on
-- `U` :: execute dry update
+- `U` :: execute dry update and list which waiting for update
 - `u` :: execute full update (but no distro and holded), regular update with simulate update to check if needed timeshift snapshot and update then cleaning
 
 ##### GFX
@@ -67,6 +70,7 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 
 ##### VIDEO
 - `ffavi` :: convert any video to H.264/mkv crf/20 and audio mp3/48000Mhz/128k
+  > install :: ffmpeg
 
 #### MSX
 - `m` :: play content of folder given as arg // no args list entries // arg '--' list entries of folder given as second arg
@@ -104,16 +108,16 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 ## Unbundled
 Contains full and prettified some scripts of above aliases.
 - `e`
-- `findusb` : findusbports
+- `findusb` :: findusbports
 - `jpgre`
 - `tm`
 - `u` : update
-- `update_ubuntu` : for ubuntu full update
-- `update_ubuntu_non` : sme but without update kept back and nvidia
-- `swap.sh`\* : for creating and/or changing /swapfile
+- `update_ubuntu` :: for ubuntu full update
+- `update_ubuntu_non` :: sme but without update kept back and nvidia
+- `swap.sh`\* :: for creating and/or changing /swapfile
   > argument as number to change amount in gigs (default: total ram +2) \
   > if "--" then just remove and disable swap
-- `nvidia_hold.sh`\* : mark all nvidia dependencies as hold to prevent updates
+- `nvidia_hold.sh`\* :: mark all nvidia dependencies as hold to prevent updates
 
   \* not aliased
 
@@ -189,3 +193,51 @@ Copy to your HOME under Termux on your Android device.
     cp bashrc_termux .bashrc
     ``` 
 5. restart shell: **exec bash**
+
+### Aliases
+
+#### Variables
+
+- `SH_MSX`
+- `SH_IM`
+- `TIME_STYLE`
+- `USER` :: sets env which is missing
+
+#### Common
+
+- `l`
+- `l.`
+- `ll`
+- `ip`
+- `dus`
+- `hist`
+
+#### Install & update (PKG)
+
+- `i`
+- `I`
+- `s`
+- `S`
+- `r`
+- `u` :: update repos
+- `U` :: update and upgrade all and then clean
+
+#### Tools
+
+- `e`
+- `sc`
+- `kc`
+- `list` :: convert text comma separated to EOL which could be pasted and remade as checklist
+  > use default list name "_list" or provided arg
+  > outputs to console
+
+#### Msx & Gfx
+
+- `jpgre` :: resize all .jpg from current folder to 50% and outputs to **resized** folder
+- `pdfnopass`
+
+#### Editor
+
+- `vi`
+- `mi`
+- `na`
