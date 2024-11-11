@@ -1,15 +1,28 @@
+### v. 20241111
+#
 # Bash Termux
 #
 shopt -s autocd
 shopt -s histappend
+#
 HISTCONTROL=ignoreboth
 HISTSIZE=
 HISTFILESIZE=
+#
 export USER=$(id -un)
 export SH_MSX="$HOME/storage/music"
+export TIME_STYLE="+%Y.%m.%d %H:%M"
+#
+SH_IM=
+[[ -n $(command -v magick) ]] && SH_IM="magick"	#IM7
+[[ -n $(command -v convert) ]] && [[ -z $SH_IM ]] && SH_IM="convert"	#IM6
+export SH_IM
+#
 exec {BASH_XTRACEFD}>/dev/null
 #
-#	Aliases
+###	Aliases
+#
+#   common
 #
 if [[ -n $(command -v exa) ]];then
     alias l='exa -F'
@@ -20,7 +33,7 @@ else
     alias l.='ls -dF .*'
     alias ll='ls -alFh'
 fi
-alias ip='ip -c'
+[[ -n $(command -v netstat) ]] && alias ip='ip -c'
 alias dus='du -h --max-depth=1 --exclude="lost+found"'
 alias hist='cat $HOME/.bash_history | grep -E'
 #
@@ -36,17 +49,23 @@ alias U='pkg update -y && pkg upgrade -y && pkg autoclean -y'
 #
 #	tools
 #
-alias e='ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F1 | awk "/\*$/{print}" | sed "s/.$//"); [[ $(wc -w <<< "${arr[@]}") -gt 0 ]] && for v in "${arr[@]}"; do head -c 8 $v | grep -E "^#!" >/dev/null && echo $v; done; else ./$*; fi; };ex'
+alias e='fn_ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F1 | awk "/\*$/{print}" | sed "s/.$//"); [[ $(wc -w <<< "${arr[@]}") -gt 0 ]] && for v in "${arr[@]}"; do head -c 8 $v | grep -E "^#!" >/dev/null && echo $v; done; else ./$*; fi; };fn_ex'
 [[ -n $(command -v shellcheck) ]] && alias sc='shellcheck -S warning'
 [[ -e $HOME/kc.sh ]] && alias kc='shift; $HOME/kc.sh $@'
+alias list='fn_list(){o="_list";[[ -e $1 ]] && o=$1;[[ -e $o ]] && echo -e "$(cat $o | sed -e '"'"'s/\s*,\s*/\n/g'"'"')";};fn_list'
 #
-#	TIZONIA
+#	msx : tizonia
 #
 if [[ -n $(command -v tizonia) ]];then
 alias m='fn_msx(){ if [[ -z "$1" ]] || [[ "$1" = "--" ]];then [[ -d $SH_MSX/$2 ]] && ls -1 "$SH_MSX/$2"; else [[ -d $SH_MSX/$1 ]] && tizonia "$SH_MSX/$1"; fi; };fn_msx'
 alias ms='tizonia --youtube-audio-search'
 alias ml='tizonia --youtube-audio-playlist'
 fi
+#
+#   gfx
+#
+[[ -n $SH_IM ]] && alias jpgre='mkdir resized >/dev/null 2>&1; find . -maxdepth 1 -iname "*.jpg" | while read f;do echo -n "#"; $SH_IM "${f}" -resize 50% "./resized/${f#*/}";done; echo -ne "\n";'
+[[ -n $(command -v gs) ]] && alias pdfnopass='fn_pdfnp(){ [[ -e "${1}" ]] && [[ -n "${2}" ]] && gs -dNOPAUSE -dBATCH -q -sDEVICE=pdfwrite -sPDFPassword="${2}" -sOutputFile="${1%.*}_np.pdf" -f "${1}";};fn_pdfnp'
 #
 #	editor
 #
