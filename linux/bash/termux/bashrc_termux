@@ -1,4 +1,4 @@
-### v. 20241111
+### v. 20241112
 #
 # Bash Termux
 #
@@ -52,7 +52,7 @@ alias U='pkg update -y && pkg upgrade -y && pkg autoclean -y'
 alias e='fn_ex(){ if [ -z "$1" ];then readarray -t arr <<< $(ls -F1 | awk "/\*$/{print}" | sed "s/.$//"); [[ $(wc -w <<< "${arr[@]}") -gt 0 ]] && for v in "${arr[@]}"; do head -c 8 $v | grep -E "^#!" >/dev/null && echo $v; done; else ./$*; fi; };fn_ex'
 [[ -n $(command -v shellcheck) ]] && alias sc='shellcheck -S warning'
 [[ -e $HOME/kc.sh ]] && alias kc='shift; $HOME/kc.sh $@'
-alias list='fn_list(){o="_list";[[ -e $1 ]] && o=$1;[[ -e $o ]] && echo -e "$(cat $o | sed -e '"'"'s/\s*,\s*/\n/g'"'"')";};fn_list'
+alias list='fn_list(){ o="_list"; [[ -e $1 ]] && o=$1; [[ -e $o ]] && cat $o | sed -e "s/\s*,\s*/\n/g";};fn_list'
 #
 #	msx : tizonia
 #
@@ -73,8 +73,8 @@ fi
 [[ -n $(command -v micro) ]] && alias mi='micro'
 [[ -n $(command -v nano) ]] && alias na='nano'
 #
-#	Prompt
+#	Prompt: simple
 #
 nc='\[\e[0m\]'
-PS1="\r$nc"; [ "$UID" -eq "0" ] && PS1="$PS1\[\e[1;91m\]@$nc"
-PS1="$PS1 \[\e[1;36m\]\w >\[\e[34m\]>$nc "
+PS1="$nc"; [[ $UID -eq 0 ]] && PS1="$PS1\[\e[1;91m\]@$nc"
+PS1="$PS1\[\e[1;36m\]\w >\[\e[34m\]>$nc "
