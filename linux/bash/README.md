@@ -185,12 +185,12 @@ Copy to your HOME under Termux on your Android device.
     ```
     OR
     ```
-    curl https://github.com/exa18/shell-scripting/raw/main/linux/bash/termux/bashrc_termux > .bashrc
+    curl -L https://github.com/exa18/shell-scripting/raw/main/linux/bash/termux/bashrc_termux > .bashrc
     ```
     OR
     ```
     wget https://github.com/exa18/shell-scripting/raw/main/linux/bash/termux/bashrc_termux
-    cp bashrc_termux .bashrc
+    mv bashrc_termux .bashrc
     ``` 
 5. restart shell: **exec bash**
 
