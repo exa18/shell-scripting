@@ -1,4 +1,4 @@
-### v. 20241110
+### v. 20241112
 #
 # If not running interactively, don't do anything
 case $- in
@@ -63,7 +63,6 @@ exec {BASH_XTRACEFD} >/dev/null
 #
 #   ------------ PROMPT
 #
-#show_host='╱\h'	# uncomment to show HOST
 nc='\[\e[0m\]'
 # color: blue
 prompt='\[\e[1;34m\]'
@@ -79,7 +78,13 @@ if [[ $UID -eq 0 ]]; then
 	pathcheck='\[\e[1;91m\]'
 	user="@"
 fi
-user="$nc$info $user$show_host $nc"
+#
+#	config user info
+#
+user=" $user "	# ' USER '
+#user=" $user/\h "	# ' USER/HOST '
+#user="${HOSTNAME/.*}.$user"	#hostname=s23.local -> 's23.USER'
+user="$nc$info$user$nc"
 
 parse_forhome(){ [[ "${a:0:${#HOME}}" == "${HOME}" ]] && a="${a/${HOME}/\~}"; r="${a##*/}"; }
 parse_prompt(){
@@ -102,17 +107,17 @@ set_prompt(){
 		# TWOLINE
 		#┌── user╱host ──┤~│
 		#└─┤
-		PS1="\r$nc$prompt┌──$user$prompt──┤$(parse_prompt)$prompt│\n$prompt└─┤$nc"
+		PS1="$nc$prompt┌──$user$prompt──┤$(parse_prompt)$prompt│\n$prompt└─┤$nc"
 		;;
 	oneline)
 		# ONELINE
 		# user╱host ─┤~│ 
-		PS1="\r$nc$user$prompt─┤$(parse_prompt)$prompt│$nc"
+		PS1="$nc$user$prompt─┤$(parse_prompt)$prompt│$nc"
 		;;
 	simple|*)
 		# SIMPLE Oneline
 		# user╱host ~ >>
-		PS1="\r$nc$user $path$(parse_prompt) $path>$pathcheck>$nc"
+		PS1="$nc$user $path$(parse_prompt) $path>$pathcheck>$nc"
 		;;
 	esac
 }
