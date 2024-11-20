@@ -63,10 +63,10 @@ loc=$([ -e "${kbloc}" ] && ls -lah --time-style=full-iso "${kbloc}" | awk '{prin
 rclone check "${kbloc}" "${cloud}" --size-only --one-way --no-traverse --log-file "${log}"
 tsys="$(date +%Y%m%d%H%M)"
 logdif=$(cat ${log} | awk '/NOTICE.*differences/{print}')
-dif=$(printf '%d' "$(echo "${logdif}" | grep -Po '\:\s([0-9]+)' | awk '{print $NF}')" 2>/dev/null)
+dif=$(printf '%d' "$(echo ${logdif} | grep -Po '\:\s([0-9]+)' | awk '{print $NF}')" 2>/dev/null)
 # get remote time and calc timezone
-trem=$(echo "${logdif}" | awk -F: '{print $1 $2}'|tr -d "/"|tr -d " ")
-tz=$(( ((tsys - trem)/100)*100 ))
+trem="$(echo ${logdif} | awk -F: '{print $1 $2}'|tr -d '/'|tr -d ' ')"
+tz=$(( (tsys - trem)/100 *100 ))
 rm "${log}"
 
 [ -z "${rem}" ] && rem=0 || rem=$((rem + tz))
