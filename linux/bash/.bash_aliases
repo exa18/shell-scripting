@@ -1,4 +1,4 @@
-### v. 20241111
+### v. 20241124
 #
 #
 #	VARIABLES (settings)
@@ -23,11 +23,13 @@ alias sudo='sudo '
 if [[ -n $(command -v exa) ]];then
 	alias l='exa -F'
 	alias l.='exa -dF .*'
-	alias ll='exa -alFh'
+	alias ll='exa -lFh'
+	alias la='exa -alFh'
 else
 	alias l='ls -CF'
 	alias l.='ls -dF .*'
-	alias ll='ls -alFh'
+	alias ll='ls -lFh'
+	alias la='ls -alFh'
 fi
 [[ -n $(command -v netstat) ]] && alias ip='ip -c'
 alias dff='df -h | grep -P "^(File|\/dev\/)" --color=never'

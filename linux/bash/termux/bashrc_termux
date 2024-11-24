@@ -1,4 +1,4 @@
-### v. 20241112
+### v. 20241124
 #
 # Bash Termux
 #
@@ -25,13 +25,15 @@ exec {BASH_XTRACEFD}>/dev/null
 #   common
 #
 if [[ -n $(command -v exa) ]];then
-    alias l='exa -F'
-    alias l.='exa -dF .*'
-    alias ll='exa -alFh'
+	alias l='exa -F'
+	alias l.='exa -dF .*'
+	alias ll='exa -lFh'
+	alias la='exa -alFh'
 else
-    alias l='ls -CF'
-    alias l.='ls -dF .*'
-    alias ll='ls -alFh'
+	alias l='ls -CF'
+	alias l.='ls -dF .*'
+	alias ll='ls -lFh'
+	alias la='ls -alFh'
 fi
 [[ -n $(command -v netstat) ]] && alias ip='ip -c'
 alias dus='du -h --max-depth=1 --exclude="lost+found"'
