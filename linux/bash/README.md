@@ -36,9 +36,10 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 - `TIME_STYLE` :: sets date format used by **ls** and **exa**
 
 #### COMMON
-- `ll` :: same as above but as expanded
 - `l` :: list entires as columns and with indicator
-- `l.` :: list hidden (begins with dot)
+- `ll` :: same as above but as expanded
+- `la` :: list all (with hidden)
+- `l.` :: list only hidden (begins with dot)
 - `ip` :: just add colors
   > install :: net-tools
 - `dff` :: shows all /dev/sd* usage
@@ -208,6 +209,7 @@ Copy to your HOME under Termux on your Android device.
 - `l`
 - `l.`
 - `ll`
+- `la`
 - `ip`
 - `dus`
 - `hist`
