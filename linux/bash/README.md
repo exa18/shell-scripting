@@ -71,6 +71,7 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 
 ##### VIDEO
 - `ffavi` :: convert any video to H.264/mkv crf/20 and audio mp3/48000Mhz/128k
+- `ffmp3` :: extract mp3 with 192k bitrate from video
   > install :: ffmpeg
 
 #### MSX
@@ -96,8 +97,9 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 - `tm` :: change access and modification datetime with arg YYYYMMDDhhmm. Changes with only provided part of arg.
 - `kc` :: sync Keepass file local-remote with autochange detection (separate project)
   > install :: keepassrc rclone
-`- `psk` :: shows collected wifi passwords
-`- `findusb` :: determine usb port of device
+- `psk` :: shows collected wifi passwords
+- `findusb` :: determine usb port of device
+- `version` :: get version for .bash_aliases and .bashrc
 - `ddw` :: write IMG to (USB) drive, exp. ddw sde raspberry.img
 - `ddc` :: clear (USB) drive, exp. ddc sde
 

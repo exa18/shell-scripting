@@ -1,4 +1,4 @@
-### v. 20241124
+### v. 20241129
 #
 #
 #	VARIABLES (settings)
@@ -51,7 +51,10 @@ alias u='s="sudo "; ${s}apt update; u=$(apt upgrade -s 2>/dev/null |grep upgrade
 #
 #	video
 #
-[[ -n $(command -v ffmpeg) ]] && alias ffavi='fn_ffa(){ [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -map 0 -pix_fmt yuv420p -c:v libx264 -crf 21 -c:a libmp3lame -b:a 128k "./${1%.*}_h264.mkv";};fn_ffa'
+if [[ -n $(command -v ffmpeg) ]];then
+alias ffavi='fn_ffa(){ [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -map 0 -pix_fmt yuv420p -c:v libx264 -crf 21 -c:a libmp3lame -b:a 128k "./${1%.*}_h264.mkv";};fn_ffa'
+alias ffmp3='fn_ffmp3(){ [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -c:a libmp3lame -b:a 192k -map a "./${1%.*}.mp3";};fn_ffmp3'
+fi
 #
 #	gfx
 #
@@ -103,6 +106,7 @@ alias tm='fn_tmdd(){ local arr=("${1::4}" "${1:4:2}" "${1:6:2}" "${1:8:2}" "${1:
 [[ -e $HOME/kc.sh ]] && alias kc='shift; $HOME/kc.sh $@'
 alias psk='sudo grep psk= /etc/NetworkManager/system-connections/* | awk -F/ '"'"'{print $NF}'"'"' '
 alias findusb='for sysdevpath in $(find /sys/bus/usb/devices/usb*/ -name dev); do ( syspath="${sysdevpath%/dev}"; devname="$(udevadm info -q name -p $syspath)"; [[ "$devname" == "bus/"* ]] && exit || eval "$(udevadm info -q property --export -p $syspath)"; [[ -z "$ID_SERIAL" ]] && exit || echo "/dev/$devname - $ID_SERIAL"; ); done'
+alias version='fn_version(){ head -n 1 ~/$1 | awk '"'"'{print $NF}'"'"';}; echo -e "$($SHELL --version | grep version | head -n 1)\n alias: $(fn_version .bash_aliases)\n rc: $(fn_version .bashrc)";'
 #
 #	tools for USB device write
 #
