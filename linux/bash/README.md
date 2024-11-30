@@ -71,7 +71,7 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 
 ##### VIDEO
 - `ffavi` :: convert any video to H.264/mkv crf/20 and audio mp3/48000Mhz/128k
-- `ffmp3` :: extract mp3 with 192k bitrate from video
+- `ffmp3` :: extract mp3 with 192k (default) bitrate from video // args: /videofile/ /bitrate/
   > install :: ffmpeg
 
 #### MSX

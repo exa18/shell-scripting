@@ -1,4 +1,4 @@
-### v. 20241129
+### v. 20241130
 #
 #
 #	VARIABLES (settings)
@@ -7,13 +7,40 @@ export SH_MSX="$HOME/Music"
 export SH_JPGRE="40"
 export SH_SPIN="/-\|"
 export SH_MSXPLAYER="mocp"	#tizonia|mocp
-fn_spin(){ echo "${SH_SPIN:x++%${#SH_SPIN}:1}"; }
 export TIME_STYLE="+%Y.%m.%d %H:%M"
-#
 SH_IM=
 [[ -n $(command -v magick) ]] && SH_IM="magick"	#IM7
-[[ -n $(command -v convert) ]] && [[ -z $SH_IM ]] && SH_IM="convert"	#IM6
+[[ -n $(command -v convert) && -z $SH_IM ]] && SH_IM="convert"	#IM6
 export SH_IM
+#
+fn_spin(){ echo "${SH_SPIN:x++%${#SH_SPIN}:1}"; }
+fn_bitrate(){
+	# LAME Bitrate / CBR Encoding
+	# b = 8, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320
+	# x = 0,  1,  2,  3,  4,  5,  6,  7,  8,   9,  10,  11,  12,  13,  14,  15
+	# i = 1,  2,  3,  4,  5,  6,  1,  2,  3,   4,   5,   1,   2,   3,   4,   1
+	# m = 8 .................... 16  .................. 32 ................ 64
+	# d = 0 .................... 48 .................. 128 ............... 256
+	x=0		# counter
+	i=1		# increment
+	m=8		# multiply at stage
+	d=0		# stage value
+	#
+	b=8		# bitrate
+	if [[ $1 -gt 8 ]];then
+		while [[ $b -lt $1 && $x -lt 16 ]];do
+			if [[ $x -eq 6 || $x -eq 11 || $x -eq 15 ]];then
+				m=$(( m *2 ))
+				i=1
+				d=$b
+			fi
+			b=$(( d + m * i ))
+			i=$(( i +1 ))
+			x=$(( x +1 ))
+		done
+	fi
+	echo "${b}k"
+}
 #
 #	ALIASES
 #
@@ -53,7 +80,7 @@ alias u='s="sudo "; ${s}apt update; u=$(apt upgrade -s 2>/dev/null |grep upgrade
 #
 if [[ -n $(command -v ffmpeg) ]];then
 alias ffavi='fn_ffa(){ [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -map 0 -pix_fmt yuv420p -c:v libx264 -crf 21 -c:a libmp3lame -b:a 128k "./${1%.*}_h264.mkv";};fn_ffa'
-alias ffmp3='fn_ffmp3(){ [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -c:a libmp3lame -b:a 192k -map a "./${1%.*}.mp3";};fn_ffmp3'
+alias ffmp3='fn_ffmp3(){ [[ -z $2 ]] && bt="192k" || bt=$(fn_bitrate $2); [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -c:a libmp3lame -b:a $bt -map a "./${1%.*}.mp3";};fn_ffmp3'
 fi
 #
 #	gfx
@@ -74,26 +101,26 @@ tizonia)
 	#	TIZONIA
 	#
 	if [[ -n $(command -v $SH_MSXPLAYER) ]];then
-alias m='fn_msx(){ if [[ -z "$1" ]] || [[ "$1" = "--" ]];then [[ -d $SH_MSX/$2 ]] && ls -1 "$SH_MSX/$2"; else [[ -d $SH_MSX/$1 ]] && tizonia "$SH_MSX/$1"; fi; };fn_msx'
-alias ms='tizonia --youtube-audio-search'
-alias ml='tizonia --youtube-audio-playlist'
+	alias m='fn_msx(){ if [[ -z "$1" ]] || [[ "$1" = "--" ]];then [[ -d $SH_MSX/$2 ]] && ls -1 "$SH_MSX/$2"; else [[ -d $SH_MSX/$1 ]] && tizonia "$SH_MSX/$1"; fi; };fn_msx'
+	alias ms='tizonia --youtube-audio-search'
+	alias ml='tizonia --youtube-audio-playlist'
 	fi;;
 mocp)
 	#
 	#	MOCP
 	#
 	if [[ -n $(command -v $SH_MSXPLAYER) ]];then
-fn_msxserver(){
-	mocp -S > /dev/null 2>&1
-}
-fn_msxserver
-alias m='fn_msx(){ fn_msxserver; [[ $# -eq 0 ]] && mocp --info | grep -E --color=never "^(State|File|Title|TotalTime|TimeLeft)" && echo "*";if [[ -z "$1" ]] || [[ "$1" = "--" ]];then [[ -d $SH_MSX/$2 ]] && ls -1 "$SH_MSX/$2"; else [[ -d $SH_MSX/$1 ]] && mocp -c && mocp --append $SH_MSX/$1 && mocp --play; fi; };fn_msx'
-alias ms='mocp --toggle-pause'
-alias mS='[[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play || mocp --stop'
-alias mx='fn_msxserver;[[ -e $HOME/.moc/playlist.m3u ]] && [[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play;mocp'
-alias mn='mocp --next'
-alias mp='mocp --previous'
-alias mX='mocp -x'
+	fn_msxserver(){
+		mocp -S > /dev/null 2>&1
+	}
+	fn_msxserver
+	alias m='fn_msx(){ fn_msxserver; [[ $# -eq 0 ]] && mocp --info | grep -E --color=never "^(State|File|Title|TotalTime|TimeLeft)" && echo "*";if [[ -z "$1" ]] || [[ "$1" = "--" ]];then [[ -d $SH_MSX/$2 ]] && ls -1 "$SH_MSX/$2"; else [[ -d $SH_MSX/$1 ]] && mocp -c && mocp --append $SH_MSX/$1 && mocp --play; fi; };fn_msx'
+	alias ms='mocp --toggle-pause'
+	alias mS='[[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play || mocp --stop'
+	alias mx='fn_msxserver;[[ -e $HOME/.moc/playlist.m3u ]] && [[ $(mocp --info | grep STOP | wc -l) -gt 0 ]] && mocp --play;mocp'
+	alias mn='mocp --next'
+	alias mp='mocp --previous'
+	alias mX='mocp -x'
 	fi;;
 esac
 #
