@@ -1,7 +1,7 @@
 # Debian apt(8) completion
-# install
+# reinstall
 
-_aptinstal(){
+_aptreinstal(){
 	local cur prev words cword
 	_init_completion -n = || return
 
@@ -12,6 +12,6 @@ _aptinstal(){
 	fi
 
 } &&
-complete -F _aptinstal i
+complete -F _aptreinstal I
 
 # ex: filetype=sh
