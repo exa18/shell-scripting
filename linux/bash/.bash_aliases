@@ -1,4 +1,4 @@
-### v. 20241130
+### v. 20250130
 #
 #
 #	VARIABLES (settings)
@@ -41,6 +41,8 @@ fn_bitrate(){
 	fi
 	echo "${b}k"
 }
+fn_usbcheck(){ lsblk /dev/$1 -n -d -o TYPE,SUBSYSTEMS|awk '{if ($1=="disk" && match($2,"usb") ){print "Y"}}'; }
+fn_waitany(){ read -n 1 -p "Any key to continue..?"; }
 #
 #	ALIASES
 #
@@ -137,8 +139,8 @@ alias version='fn_version(){ head -n 1 ~/$1 | awk '"'"'{print $NF}'"'"';}; echo 
 #
 #	tools for USB device write
 #
-alias ddw='fn_ddww(){ [[ -e $1 ]] && [[ -n "${2}" ]] && [[ -e /dev/$2 ]] && sudo dd bs=4M if=$1 of=/dev/$2 oflag=sync status=progress; };fn_ddww'
-alias ddc='fn_ddcc(){ [[ -n "${1}" ]] && [[ -e /dev/$1 ]] && sudo dd bs=4M if=/dev/zero of=/dev/$1 oflag=sync status=progress; };fn_ddcc'
+alias ddw='fn_ddww(){ [[ -e $2 ]] && [[ -n "${1}" ]] && [[ -e /dev/$1 ]] && [[ -n "$(fn_usbcheck ${1})" ]] && fn_waitany && sudo dd bs=4M if=$2 of=/dev/$1 oflag=sync status=progress; };fn_ddww'
+alias ddc='fn_ddcc(){ [[ -n "${1}" ]] && [[ -e /dev/$1 ]] && [[ -n "$(fn_usbcheck ${1})" ]] && fn_waitany && sudo dd bs=4M if=/dev/zero of=/dev/$1 oflag=sync status=progress; };fn_ddcc'
 #
 #	editor
 #
