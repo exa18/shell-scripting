@@ -60,6 +60,7 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 ##### GFX
 - `psd2jpg` :: convert all .psd to .jpg in current folder
 - `jpgre` :: resize all .jpg which was not scaled to given number of % width/higth // arg with number change % of resize
+- `gfx2jpg` :: convert one or more images to JPG with 100% quality
   > install :: imagemagick
 - `pdf2pdf` :: separate multi page PDF to single pages (numbered 0000, 0001 ...)
   > install :: pdfarranger
