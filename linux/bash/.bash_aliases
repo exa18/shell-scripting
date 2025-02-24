@@ -1,4 +1,4 @@
-### v. 20250130
+### v. 20250205
 #
 #
 #	VARIABLES (settings)
@@ -82,7 +82,7 @@ alias u='s="sudo "; ${s}apt update; u=$(apt upgrade -s 2>/dev/null |grep upgrade
 #
 if [[ -n $(command -v ffmpeg) ]];then
 alias ffavi='fn_ffa(){ [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -map 0 -pix_fmt yuv420p -c:v libx264 -crf 21 -c:a libmp3lame -b:a 128k "./${1%.*}_h264.mkv";};fn_ffa'
-alias ffmp3='fn_ffmp3(){ [[ -z $2 ]] && bt="192k" || bt=$(fn_bitrate $2); [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -c:a libmp3lame -b:a $bt -map a "./${1%.*}.mp3";};fn_ffmp3'
+alias ffmp3='fn_ffmp3(){ [[ -e "./${1}" ]] && ffmpeg -i "./${1}" -c:a libmp3lame -b:a $bt -map a "./${1%.*}.mp3";}; fn_ffmp3ch(){ if [[ -e "./${1}" ]];then ff="${1}"; shift; fi; [[ -z $1 ]] && bt="192k" || bt=$(fn_bitrate $1); if [[ -n $ff ]];then fn_ffmp3 "$ff"; else for i in *.mp4 ; do fn_ffmp3 "$i"; done; fi;}; fn_ffmp3ch'
 fi
 #
 #	gfx
