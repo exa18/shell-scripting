@@ -31,7 +31,6 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 - `SH_MSX` :: sets working directory for **m**
 - `SH_MSXPLAYER` :: choose wich player to use **tizonia|mocp**
 - `SH_JPGRE` :: sets default % of resize for **jpgre**
-- `SH_SPIN` :: sets spin sequence for progress **jpgre** and **psd2jpg**
 - `SH_IM` :: selects which ImageMagick version, IM7 uses **magick** but IM6 **convert**
 - `TIME_STYLE` :: sets date format used by **ls** and **exa**
 
