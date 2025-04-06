@@ -23,4 +23,15 @@
 	<patterns>*</patterns>
 	<directories/>
 </action>
+<action>
+	<icon>view-list-video</icon>
+	<name>Play Video</name>
+	<submenu></submenu>
+	<unique-id>1741128078278403-1</unique-id>
+	<command>ffplay %n</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<video-files/>
+</action>
 </actions>
