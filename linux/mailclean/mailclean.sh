@@ -9,8 +9,10 @@ shift
 [[ -z "${domain}" ]] && domain="*"
 if [[ "${dozip}" = "--" ]];then
     dozip="make .zip and "
+    doziphelp="#   .zip stored at "
 else
     dozip=
+    doziphelp=""
 fi
 #
 #   // Real path on server
@@ -23,7 +25,8 @@ readarray -t cur <<< "$(find $d -type d \( -name "cur" -o -name "new" \) -print)
 t=$(date "+%Y%m%d")
 arh="${HOME}/mail_arch/"
 [[ -d $arh ]] || mkdir -p $arh
-
+[[ -n "$doziphelp" ]] && doziphelp="$doziphelp$arh
+"
 # file size in MB
 fs=( 3 5 10 15 20 )
 # file time older than in days
@@ -145,8 +148,7 @@ clean domain
 Files older than ${at} days
 #   and less than ${as} MB ${dozip}do remove
 #   and greater than ${as} MB do remove
-#   .zip stored at ${arh}
-
+${doziphelp}
 scan (domain)
 #   checks how many GB saved with given days and size
 
