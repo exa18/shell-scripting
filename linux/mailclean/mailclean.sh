@@ -18,7 +18,7 @@ fi
 dir="${HOME}/imap/${domain}"
 d="${dir}/*/Maildir/"
 #   find only CUR folders which contains mails
-readarray -t cur <<< "$(find $d -type d -name "cur" -print)"
+readarray -t cur <<< "$(find $d -type d \( -name "cur" -o -name "new" \) -print)"
 #
 t=$(date "+%Y%m%d")
 arh="${HOME}/mail_arch/"
