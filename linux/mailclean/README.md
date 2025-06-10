@@ -4,7 +4,7 @@
 This script is for cleaning ./imap folder from growing files.
 Can be set as cron job.
 Also works on directory structure for **hekko/cyberfolks** or similar ->
-```<home>/imap/domain/*Maildir/cur```
+```<home>/imap/<domain>/*/Maildir/```
 
 ```
 <home>
@@ -14,7 +14,9 @@ Also works on directory structure for **hekko/cyberfolks** or similar ->
             /user1
             /user2
             /...
-                /Maildir/cur
+                /Maildir
+                    /*/cur
+                    /*/new
 ```
 
 ### Args
