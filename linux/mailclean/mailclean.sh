@@ -8,7 +8,6 @@ shift
 [[ -n "${1}" ]] && domain="${1#--*}" && dozip="${1::2}" # set domain name
 [[ -z "${domain}" ]] && domain="*"
 if [[ "${dozip}" = "--" ]];then
-    dozip="make .zip and "
     doziphelp="#   .zip stored at "
 else
     dozip=
@@ -136,6 +135,9 @@ echo "DONE."
 #
     "help" | * )
 #
+[[ -n "${dozip}" ]] && dozip="
+#   and less than ${as} MB make .zip and do remove" || dozip=""
+#
 cat << _EOF_
 
 Working with directory:
@@ -145,8 +147,7 @@ Domain prefixed with "--" will turn on making ZIP
 for smaller files.
 
 clean domain
-Files older than ${at} days
-#   and less than ${as} MB ${dozip}do remove
+Files older than ${at} days${dozip}
 #   and greater than ${as} MB do remove
 ${doziphelp}
 scan (domain)
