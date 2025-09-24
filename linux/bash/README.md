@@ -100,6 +100,9 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 - `psk` :: shows collected wifi passwords
 - `findusb` :: determine usb port of device
 - `version` :: get version for .bash_aliases and .bashrc
+- `ts` :: list snapshots // arg is then delete snapshot by selected number and list // arg is number starting with '--' then delete snapshots from 0 till arg, exp. "--2" deletes 0,1 and 2
+  > install :: timeshift
+- `rr` :: check if reboot is needed
 - `ddw` :: write IMG to (USB) drive, exp. ddw sde raspberry.img
 - `ddc` :: clear (USB) drive, exp. ddc sde
 

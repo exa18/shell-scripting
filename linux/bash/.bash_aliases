@@ -1,4 +1,4 @@
-### v. 20250407
+### v. 20250924
 #
 #
 #	VARIABLES (settings)
@@ -135,6 +135,8 @@ alias tm='fn_tmdd(){ local arr=("${1::4}" "${1:4:2}" "${1:6:2}" "${1:8:2}" "${1:
 alias psk='sudo grep psk= /etc/NetworkManager/system-connections/* | awk -F/ '"'"'{print $NF}'"'"' '
 alias findusb='for sysdevpath in $(find /sys/bus/usb/devices/usb*/ -name dev); do ( syspath="${sysdevpath%/dev}"; devname="$(udevadm info -q name -p $syspath)"; [[ "$devname" == "bus/"* ]] && exit || eval "$(udevadm info -q property --export -p $syspath)"; [[ -z "$ID_SERIAL" ]] && exit || echo "/dev/$devname - $ID_SERIAL"; ); done'
 alias version='fn_version(){ head -n 1 ~/$1 | awk '"'"'{print $NF}'"'"';}; echo -e "$($SHELL --version | grep version | head -n 1)\n alias: $(fn_version .bash_aliases)\n rc: $(fn_version .bashrc)";'
+[[ -n $(command -v timeshift) ]] && alias ts='fn_ts(){ if [[ "${1::2}" = "--" ]]; then x=${1#--*}; [[ -z "$x" ]] && x=0; for ((i=0 ; i<=$x; i++)); do fn_timeshift 0; done; else fn_timeshift $1; sleep 1; sudo timeshift --list; fi;}; fn_timeshift(){ tl=$(sudo timeshift --list); if [[ -z "$1" ]]; then printf "$tl\n"; else tls=$(sudo timeshift --list | awk -v s=$1 '"'"'$1==s {print $3}'"'"'); sudo timeshift --delete --snapshot $tls || printf "$tl\n"; fi;};fn_ts'
+alias rr='if [[ -f /var/run/reboot-required ]]; then echo "REBOOT required"; else echo "No reboot needed"; fi'
 #
 #	tools for USB device write
 #
