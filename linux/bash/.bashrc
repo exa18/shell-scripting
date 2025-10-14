@@ -59,7 +59,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 export LESSHISTFILE=-
 # remove autocd output
-exec {BASH_XTRACEFD} >/dev/null
+exec {BASH_XTRACEFD}>/dev/null
 #
 #   ------------ PROMPT
 #
