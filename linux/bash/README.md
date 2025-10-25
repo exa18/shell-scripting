@@ -49,6 +49,8 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 
 #### APT
 - `i` :: install package with yes agree on
+- `ii` :: dpkg install
+- `ix` :: fix broken install
 - `I` :: reinstall package
 - `s` :: list repos
 - `S` :: show given package
@@ -108,8 +110,14 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 
 #### EDITOR
 - `vi` :: neovim
+- `svi` :: sudo neovim
+  > install :: nvim
 - `na` :: nano
+- `sna` :: sudo nano
+  > install :: nano
 - `mi` :: micro
+- `smi` :: sudo micro
+  > install : micro
 
 ## Unbundled
 Contains full and prettified some scripts of above aliases.

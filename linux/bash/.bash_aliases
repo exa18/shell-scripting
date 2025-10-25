@@ -1,4 +1,4 @@
-### v. 20250924
+### v. 20251025
 #
 #
 #	VARIABLES (settings)
@@ -67,6 +67,8 @@ alias hist='cat $HOME/.bash_history | grep -E'
 #	apt & update
 #
 alias i='sudo apt -y install'
+alias ii='sudo dpkg -i'
+alias ix='sudo apt --fix-broken install'
 alias I='sudo apt -y reinstall'
 alias S='apt show'
 alias s='apt list 2>/dev/null | grep -E'
@@ -145,6 +147,15 @@ alias ddc='fn_ddcc(){ [[ -n "${1}" ]] && [[ -e /dev/$1 ]] && [[ -n "$(fn_usbchec
 #
 #	editor
 #
-[[ -n $(command -v nvim) ]] && alias vi='nvim'
-[[ -n $(command -v micro) ]] && alias mi='micro'
-[[ -n $(command -v nano) ]] && alias na='nano'
+if [[ -n $(command -v nvim) ]];then
+alias vi='nvim'
+alias svi='sudo nvim'
+fi
+if [[ -n $(command -v micro) ]];then
+alias mi='micro'
+alias smi='sudo micro'
+fi
+if [[ -n $(command -v nano) ]];then
+alias na='nano'
+alias sna='sudo nano'
+fi
