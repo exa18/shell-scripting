@@ -76,7 +76,7 @@ MORE_INFO+="├─ Cache\t\t${CACHED}\n"
 MORE_INFO+="└─ Total\t\t${TOTAL}"
 MORE_INFO+="\n\n"
 MORE_INFO+="┌ SWAP"
-if [[ -n $(printf "$RAM_SWP") ]]; then
+if [[ $SWP_TOTAL -gt 0 ]]; then
 MORE_INFO+="\t\t${UNIT}\n"
 MORE_INFO+="├─ Used\t\t${SWP_USED}\n"
 MORE_INFO+="├─ Free\t\t${SWP_FREE}\n"
