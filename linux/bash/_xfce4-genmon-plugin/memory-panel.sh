@@ -38,7 +38,7 @@ readonly AVAILABLE=$(printf "$RAM_MEM" | awk -v g=$GIGS '{$7 = $7 / g; printf "%
 
 # Swap Values
 if [[ -n $(printf "$RAM_SWP") ]]; then
-readonly SWP_TOTAL=$(printf "$RAM_SWP" | awk -v g=$GIGS '{$2 = $2 / g; printf "%.2f", $2}')
+readonly SWP_TOTAL=$(printf "$RAM_SWP" | awk -v g=$GIGS '{$2 = $2 / g; printf "%.0f", $2}')
 readonly SWP_USED=$(printf "$RAM_SWP" | awk -v g=$GIGS '{$3 = $3 / g; printf "%.2f", $3}')
 readonly SWP_FREE=$(printf "$RAM_SWP" | awk -v g=$GIGS '{$4 = $4 / g; printf "%.2f", $4}')
 fi
