@@ -68,19 +68,16 @@ INFO+="</txt>"
 
 # Tooltip
 MORE_INFO="<tool>"
-MORE_INFO+="┌ RAM\t\t${UNIT}\n"
+MORE_INFO+="┌ RAM\t\t${TOTAL} ${UNIT}\n"
 MORE_INFO+="├─ Used\t\t${USED}\n" 
 MORE_INFO+="├─ Free\t\t${FREE}\n"
 MORE_INFO+="├─ Shared\t${SHARED}\n"
-MORE_INFO+="├─ Cache\t\t${CACHED}\n"
-MORE_INFO+="└─ Total\t\t${TOTAL}"
-MORE_INFO+="\n\n"
+MORE_INFO+="└─ Cache\t\t${CACHED}\n\n"
 MORE_INFO+="┌ SWAP"
 if [[ $SWP_TOTAL -gt 0 ]]; then
-MORE_INFO+="\t\t${UNIT}\n"
+MORE_INFO+="\t\t${SWP_TOTAL} ${UNIT}\n"
 MORE_INFO+="├─ Used\t\t${SWP_USED}\n"
-MORE_INFO+="├─ Free\t\t${SWP_FREE}\n"
-MORE_INFO+="└─ Total\t\t${SWP_TOTAL}"
+MORE_INFO+="└─ Free\t\t${SWP_FREE}"
 else
 MORE_INFO+="\n└─ disabled"
 fi
