@@ -129,7 +129,8 @@ Contains full and prettified some scripts of above aliases.
 - `update_ubuntu` :: for ubuntu full update
 - `update_ubuntu_non` :: sme but without update kept back and nvidia
 - `swap.sh`\* :: for creating and/or changing /swapfile
-  > argument as number to change amount in gigs (default: total ram +2) \
+  > argument as number to change amount in gigs (default: minimal by Ubuntu recomendation) \
+  > if zero then do size for hibernation (minimal + current) \
   > if "--" then just remove and disable swap
 - `nvidia_hold.sh`\* :: mark all nvidia dependencies as hold to prevent updates
 
