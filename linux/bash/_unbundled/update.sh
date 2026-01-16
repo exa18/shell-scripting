@@ -11,7 +11,7 @@ echo -e "\nPerforming UPDATE..."
 echo "... Update repos"
 ${s}apt update
 echo -e "\n... Check if upgrade"
-u=$(apt upgrade -s 2>/dev/null |grep upgraded|awk '{t=$1+$3}END{print t}')
+u=$(apt upgrade -s 2>/dev/null |grep remov|grep -oP "\d+"|xargs|awk '"'"'{t=$1+$2}END{print t}'"'"')
 
 if [[ $u -gt 0 ]];then
 	#
