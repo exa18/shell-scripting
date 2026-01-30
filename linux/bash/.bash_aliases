@@ -1,4 +1,4 @@
-### v. 20260116
+### v. 20260130
 #
 #
 #	VARIABLES (settings)
@@ -73,8 +73,8 @@ alias I='sudo apt -y reinstall'
 alias S='apt show'
 alias s='apt list 2>/dev/null | grep -E'
 alias r='sudo apt -y remove'
-alias U='sudo echo -n "#";sudo apt update >/dev/null 2>&1;echo -ne "\r";apt upgrade -s 2>/dev/null | grep -E "^Inst"|awk '"'"'{print $2" .. "$3" to "$4")"}'"'"';'
-alias u='s="sudo "; ${s}apt update; u=$(apt upgrade -s 2>/dev/null |grep remov|grep -oP "\d+"|xargs|awk '"'"'{t=$1+$2}END{print t}'"'"'); if [[ $u -gt 0 ]];then if [[ -n $(command -v timeshift) ]];then if [[ $(${s}timeshift --list|grep "Status"|grep -c "OK") ]];then d=$(date '"'"'+%Y-%m-%d'"'"'); x=0; tag=" --tags D"; while read t; do [[ "${t}" == "D" ]] && tag=""; x=$((x+1)); done < <(${s}timeshift --list|awk -v f="${d}" '"'"'$0~f{print $4}'"'"'); [[ $x -le 1 ]] && ${s}timeshift --create --comments "before update ${x}"${tag};fi;fi; ${s}apt upgrade -y; ${s}apt autoremove -y; set -u; dpkg -l | grep "^rc" | awk '"'"'{print $2}'"'"' | xargs -r ${s}dpkg --purge; set +u; fi'
+alias U='sudo echo -n "#";sudo apt update >/dev/null 2>&1;echo -ne "\r";apt upgrade -s 2>/dev/null | grep -E "^Inst "|awk '"'"'{print $2" .. "$3" to "$4")"}'"'"';'
+alias u='s="sudo "; ${s}apt update; u=$(apt upgrade -s 2>/dev/null |grep -iP "remov[ei]"|grep -oP "\d+"|xargs|awk '"'"'{t=$1+$2}END{print t}'"'"'); if [[ $u -gt 0 ]];then if [[ -n $(command -v timeshift) ]];then if [[ $(${s}timeshift --list|grep "Status"|grep -c "OK") ]];then d=$(date '"'"'+%Y-%m-%d'"'"'); x=0; tag=" --tags D"; while read t; do [[ "${t}" == "D" ]] && tag=""; x=$((x+1)); done < <(${s}timeshift --list|awk -v f="${d}" '"'"'$0~f{print $4}'"'"'); [[ $x -le 1 ]] && ${s}timeshift --create --comments "before update ${x}"${tag};fi;fi; ${s}apt upgrade -y; ${s}apt autoremove -y; set -u; dpkg -l | grep "^rc" | awk '"'"'{print $2}'"'"' | xargs -r ${s}dpkg --purge; set +u; fi'
 #
 #	video
 #
