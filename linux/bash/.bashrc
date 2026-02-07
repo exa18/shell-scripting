@@ -1,4 +1,4 @@
-### v. 20241112
+### v. 20260207
 #
 # If not running interactively, don't do anything
 case $- in
@@ -48,7 +48,14 @@ fi
 #
 # enable terminal linewrap
 setterm -linewrap on
-
+# in case session broken
+if [[ -z "${XDG_RUNTIME_DIR}" ]]; then
+	export XDG_RUNTIME_DIR=/tmp/${UID}-runtime-dir
+	if [[ ! -d "${XDG_RUNTIME_DIR}" ]]; then
+		mkdir "${XDG_RUNTIME_DIR}"
+		chmod 0700 "${XDG_RUNTIME_DIR}"
+	fi
+fi
 # colorize man pages
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
