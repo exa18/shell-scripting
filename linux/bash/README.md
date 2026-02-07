@@ -132,7 +132,8 @@ Contains full and prettified some scripts of above aliases.
   > argument as number to change amount in gigs (default: minimal by Ubuntu recomendation) \
   > if zero then do size for hibernation (minimal + current) \
   > if "--" then just remove and disable swap
-- `nvidia_hold.sh`\* :: mark all nvidia dependencies as hold to prevent updates
+- `nvidia_hold.sh`\* :: mark all nvidia dependencies as hold to prevent updates,
+  > in case arg is "--" do just unhold all
 
   \* not aliased
 

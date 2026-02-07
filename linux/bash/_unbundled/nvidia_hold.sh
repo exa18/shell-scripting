@@ -33,6 +33,9 @@ ${s}ls >/dev/null
 # Unhold all
 ${s}apt-mark unhold $(apt-mark showhold)
 #
+# case arg="--" just unmark
+[[ "${1}" == "--" ]] && exit 0
+#
 getinstalled
 
 trap onexit EXIT
