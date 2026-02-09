@@ -139,14 +139,22 @@ Contains full and prettified some scripts of above aliases.
 
 
 ## XFCE4 Genmon
-Install: **xfce4-genmon-plugin**
+> Install: **xfce4-genmon-plugin**
+>
+> Copy those to `$HOME/.config/xfce4/panel/`
 
-Source: [Xtonousou/xfce4-genmon-scripts](https://github.com/xtonousou/xfce4-genmon-scripts/blob/master/memory-panel.sh)
-- memory-panel.sh : show ram used / total and icon if valid file which could be added as arg
+- `memory-panel.sh` : show ram used / total and icon if valid file which could be added as arg
   and also show running tasks afer click over if installed **xfce4-taskmanager** or if not and xfce4-terminal and **htop**
+  > Source: [Xtonousou/xfce4-genmon-scripts](https://github.com/xtonousou/xfce4-genmon-scripts/blob/master/memory-panel.sh)
+  >
+  > install : xfce4-taskmanager / htop
+  >
+- `urbackup-status` : show urbackup-client status / icons reworked from png to svg.
+  File contains all icons: **urbackup_.svg**
+  > install : urbackup-client [HERE](https://www.urbackup.org/download.html)
 
 ## Configs / dot folder
-Just copy to home
+Just copy to `$HOME`
 - .config -> xfce4 : panel, terminal, keyboard shortcuts
 - .config -> thunar
 - .gnupg
