@@ -1,7 +1,7 @@
 on_mount_cmd=
 mount_command=mount %m
 umount_command=umount %m
-excluded_filesystems=/boot/efi /tmp/* /run/* /root/.*
+excluded_filesystems=/boot/efi /tmp/* /run/* /root/.* */.* /mnt/*
 icon=/usr/share/icons/hicolor/scalable/apps/org.gnome.DiskUtility-symbolic.svg
 show_message_dialog=false
 include_networked_filesystems=false
