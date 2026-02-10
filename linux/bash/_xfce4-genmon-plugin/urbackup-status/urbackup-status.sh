@@ -12,7 +12,7 @@ readonly URB_LBT=$(printf "$URB"|grep last_backup_time|awk '{printf "%u",$NF}')
 readonly URB_CONNECTED=$(printf "$URB"|grep internet_connected|grep -o true|wc -l)
 readonly URB_SERVER=$(printf "$URB"|grep \"name\"|sed 's/"//g'|awk '{printf "%s",$NF}')
 readonly URB_PDONE=$(printf "$URB"|grep percent_done|awk '{printf "%u",$NF}')
-readonly URB_STAT=$(printf "$URB"|grep internet_status|grep -oE "(connected|wait|fail)")
+readonly URB_STAT=$(printf "$URB"|grep internet_status|grep -oE "(connected|wait|fail|no_server)")
 
 #readonly ICO_ERROR="/usr/share/icons/Tela-dark/22/emblems/emblem-error.svg"
 #readonly ICO_OFF="/usr/share/icons/Tela-dark/22/emblems/emblem-unavailable.svg"
@@ -32,7 +32,7 @@ case "${URB_STAT}" in
 	"wait")
 		INFO="<img>${ICO_OFF}</img>"
 	;;
-	"fail")
+	"fail" | "no_server")
 		INFO="<img>${ICO_ERROR}</img>"
 	;;
 	*)
