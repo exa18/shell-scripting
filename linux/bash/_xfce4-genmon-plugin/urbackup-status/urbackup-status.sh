@@ -26,7 +26,7 @@ readonly ICO_OK="${DIR}/urbackup_ok.svg"
 
 case "${URB_STAT}" in
 	"connected")
-		INFO+"<img>${ICO_OK}</img>"
+		INFO="<img>${ICO_OK}</img>"
 		#INFO+="<span fgcolor='Green'>()</span>"
 	;;
 	"wait")
