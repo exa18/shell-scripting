@@ -39,6 +39,9 @@ Execute **_install** to copy completions at **/usr/share/bash-completion/complet
 - `ll` :: same as above but as expanded
 - `la` :: list all (with hidden)
 - `l.` :: list only hidden (begins with dot)
+- `rm` :: added --preserve-root switch or if installed safe-rm
+  > install :: safe-rm
+  >> also need create symlink: ```sudo ln -s /usr/bin/safe-rm /usr/local/bin/rm``` after ```which -a rm``` this link should be listed as first
 - `ip` :: just add colors
   > install :: net-tools
 - `dff` :: shows all /dev/sd* usage
