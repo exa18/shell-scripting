@@ -1,4 +1,4 @@
-### v. 20260130
+### v. 20260421
 #
 #
 #	VARIABLES (settings)
@@ -57,6 +57,11 @@ else
 	alias l.='ls -dF .*'
 	alias ll='ls -lFh'
 	alias la='ls -alFh'
+fi
+if [[ -n $(command -v safe-rm) ]]; then
+	alias rm='safe-rm'
+else
+	alias rm='rm --preserve-root'
 fi
 [[ -n $(command -v netstat) ]] && alias ip='ip -c'
 alias dff='df -h | grep -P "^(File|\/dev\/)" --color=never'
