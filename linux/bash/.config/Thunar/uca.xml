@@ -34,4 +34,15 @@
 	<patterns>*</patterns>
 	<video-files/>
 </action>
+<action>
+	<icon>imagemagick</icon>
+	<name>Image Preview</name>
+	<submenu></submenu>
+	<unique-id>1794437528931502-1</unique-id>
+	<command>/usr/bin/display-im7.q16 -nostdin %F</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
 </actions>
